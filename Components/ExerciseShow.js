@@ -10,12 +10,8 @@ class ExericseCard extends React.Component {
 
     render() {
     return (
-        <View style={styles.card} onPress={() => this.props.navigation.navigate('ExerciseDetails')}>
-            <Image style={styles.exerciseImage} source={{uri: 'https://weighttraining.guide/wp-content/uploads/2016/10/push-up-tall-2.png'}}/>
-            <Text style={styles.btnTxt}>PUSH UP </Text>
-            <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.upcount()}>
-                <Text style={styles.btnTxt}> + Add  {this.props.likes}</Text>
-            </TouchableOpacity>
+        <View style={styles.card}>
+            <Text style={styles.btnTxt}> EXERCISE DETAIL </Text>
         </View>
         )
     }
