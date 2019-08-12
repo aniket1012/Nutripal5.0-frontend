@@ -14,6 +14,12 @@ import {
 
 } from 'react-native'
 
+import {connect} from 'react-redux'
+
+
+
+
+
 const DismissKeyboard = ({children}) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         {children}
@@ -27,13 +33,14 @@ class LoginScreen extends React.Component {
 
 
     render() {
+      console.log(this.props)
         return (
         <DismissKeyboard>
         <KeyboardAvoidingView behavior="padding" style={styles.container}> 
                 <StatusBar barStyle="light-content"/>
                 <View style={styles.logoContainer}>
                     <Image style={styles.logo} source={{uri: 'https://np.technology/img/NP-Small-Square-Trans-White.png'}}/>
-                    <Text style={styles.title}>NutriPal</Text> 
+                    <Text style={styles.title}>NutriPal {this.props.likes}</Text> 
                 </View> 
 
                 <View style={styles.inputContainer}>
@@ -62,14 +69,37 @@ class LoginScreen extends React.Component {
                     >
                         <Text style={styles.btnTxt}>Log In</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity 
+                    style={styles.userBtn} 
+                    onPress={() => this.props.upcount()}
+                    >
+                        <Text style={styles.btnTxt}>Back to Welcome</Text>
+                    </TouchableOpacity>
                 </View> 
         </KeyboardAvoidingView>
         </DismissKeyboard>
         )
     }
+}// END OF THE LOGIN COMPONENT 
+
+
+//READING FROM DEFAULT STATE 
+function mapStateToProps(state) {
+  return {
+    likes: state.user.likes
+  }
 }
 
-export default LoginScreen
+function mapDispatchToProps(dispatch) {
+  return {
+    upcount: () => {
+      dispatch({type:"LIKE"})}
+  }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
 
 const styles = StyleSheet.create({
   container: {

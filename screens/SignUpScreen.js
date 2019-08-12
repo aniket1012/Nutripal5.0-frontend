@@ -63,38 +63,6 @@ class SignUpScreen extends React.Component {
                 placeholderTextColor="rgba(255,255,255,0.7)"
                 secureTextEntry 
                 />
-                <TextInput 
-                style={styles.input} 
-                placeholder="Age"
-                returnKeyType="next"
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                />
-                <TextInput 
-                style={styles.input} 
-                placeholder="Height"
-                returnKeyType="next"
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                />
-                <TextInput 
-                style={styles.input} 
-                placeholder="Weight"
-                returnKeyType="next"
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                />
-                <TextInput 
-                style={styles.input} 
-                placeholder="Life Style" 
-                returnKeyType="go"
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholderTextColor="rgba(255,255,255,0.7)" 
-                />
             </View>
         <View style={styles.btnContainer}>
             <TouchableOpacity style={styles.userBtn} onPress={() => alert("Login Works")} onPress={() => this.props.navigation.navigate('DashBoard')}>

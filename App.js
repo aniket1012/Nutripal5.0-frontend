@@ -1,7 +1,13 @@
 import React from 'react';
+import { createStore, combineReducers } from 'redux'
+import {Provider} from 'react-redux'
+import userReducer from './reducers/userReducer'
+
+
 
 import { StyleSheet, Text, View, } from 'react-native';
-import { createSwitchNavigator, createAppContainer, createDrawerNavigator, createBottomTabNavigator, createStackNavigator,} from 'react-navigation'
+import { createSwitchNavigator, createAppContainer, createDrawerNavigator, createBottomTabNavigator, createStackNavigator, } from 'react-navigation'
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs"
 
 import WelcomeScreen from './screens/WelcomeScreen'
 import DashBoardScreen from './screens/DashBoardScreen'
@@ -11,42 +17,69 @@ import BuildAWorkoutScreen from './screens/BuildAWorkoutScreen'
 import ProfileScreen from './screens/ProfileScreen'
 
 
-import Icon from '@expo/vector-icons/Ionicons'
+import Icon  from '@expo/vector-icons/Ionicons'
+
 
 import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen';
 
-import HomeScreen from './screens/HomeScreen'
+import HomeScreen from './screens/HomeScreen'  
+
+const rootReducer = combineReducers({user: userReducer})
+
+const store = createStore(rootReducer)
+
 
 
 class App extends React.Component {
 
+  
+
   render() {
     return (
-      <AppContainer/>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    
     );
 
   }
-}
-  
-
-export default App
+}// END OF APP COMPONENT
 
 
+export default (App)
+// connect(mapStateToProps, mapDispatchToProps)
 
 
-const DashBoardTabNavigator = createBottomTabNavigator({
-  Exercises: {screen: AllExercisesScreen},
-  BuildAWorkout: {screen: BuildAWorkoutScreen}
+
+// TAB NAVIGATOR 
+const DashBoardTabNavigator = createMaterialBottomTabNavigator({
+  Exercises: {screen: AllExercisesScreen,
+  navigationOptions: {
+    tabBarIcon: ({tintColor})=> (
+       <Icon name='ios-fitness' color={tintColor} size={26}/>
+    )
+  }
+  },
+  BuildAWorkout: {screen: BuildAWorkoutScreen,
+  navigationOptions: {
+    tabBarIcon: ({tintColor})=> (
+       <Icon name='ios-create' color={tintColor} size={21}/>
+    )
+  }
+  }
 }, {
+  barStyle: { backgroundColor: '#263238' },
+  activeTintColor: 'orange',
   navigationOptions: ({navigation}) => {
     const {routeName} = navigation.state.routes[navigation.state.index]
     return {
-      headerTitle: routeName
+      headerTitle: routeName,
     }
-  }
+  } 
 })
 
+//DASHBOARD SCREEN
 const DashBoardStackNavigator = createStackNavigator({
   DashBoardTabNavigator: DashBoardTabNavigator
 }, {
