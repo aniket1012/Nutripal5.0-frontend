@@ -15,6 +15,7 @@ import DashBoardScreen from './screens/DashBoardScreen'
 import AllExercisesScreen from './screens/AllExercisesScreen'
 import BuildAWorkoutScreen from './screens/BuildAWorkoutScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import ExerciseShowScreen from './Components/ExerciseShow'
 
 
 import Icon  from '@expo/vector-icons/Ionicons'
@@ -25,7 +26,9 @@ import SignUpScreen from './screens/SignUpScreen';
 
 import HomeScreen from './screens/HomeScreen'  
 
-const rootReducer = combineReducers({user: userReducer})
+const rootReducer = combineReducers({
+  user: userReducer
+})
 
 const store = createStore(rootReducer)
 
@@ -50,11 +53,14 @@ class App extends React.Component {
 export default (App)
 // connect(mapStateToProps, mapDispatchToProps)
 
-
+const AllExercisesSwitch = createSwitchNavigator({
+  Exercises: {screen: AllExercisesScreen},
+  ExerciseShow: {screen: ExerciseShowScreen}
+})
 
 // TAB NAVIGATOR 
 const DashBoardTabNavigator = createMaterialBottomTabNavigator({
-  Exercises: {screen: AllExercisesScreen,
+  Exercises: {screen: AllExercisesSwitch,
   navigationOptions: {
     tabBarIcon: ({tintColor})=> (
        <Icon name='ios-fitness' color={tintColor} size={26}/>
@@ -81,7 +87,8 @@ const DashBoardTabNavigator = createMaterialBottomTabNavigator({
 
 //DASHBOARD SCREEN
 const DashBoardStackNavigator = createStackNavigator({
-  DashBoardTabNavigator: DashBoardTabNavigator
+  DashBoardTabNavigator: DashBoardTabNavigator,
+
 }, {
   defaultNavigationOptions:({navigation}) => {
     return {

@@ -8,8 +8,11 @@ const UserReducer = (prevState = state, action) => {
         case "LIKE":
             return {...prevState, likes: prevState.likes + 1}
 
-            default:
-                return prevState
+        case "FETCH_EXERCISES": 
+            return {...prevState, exercises: action.payload}
+            
+        default:
+            return prevState
     }
 
 }

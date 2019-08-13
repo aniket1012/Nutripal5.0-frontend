@@ -33,7 +33,7 @@ class LoginScreen extends React.Component {
 
 
     render() {
-      console.log(this.props)
+      // console.log(this.props)
         return (
         <DismissKeyboard>
         <KeyboardAvoidingView behavior="padding" style={styles.container}> 

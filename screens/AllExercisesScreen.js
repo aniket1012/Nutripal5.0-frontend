@@ -1,41 +1,66 @@
 import React from 'react'
 
-import {View, Text, StyleSheet, Image, ScrollView, Dimensions } from 'react-native'
+import {View, Text, StyleSheet, Image, ScrollView, Dimensions, Button, TouchableOpacity } from 'react-native'
 import ExerciseCard from '../Components/ExerciseCard'
 
+import { connect } from 'react-redux'
 
-//connect to store and msp and mdp need to added
+import { like, fetchExercises } from '../action'
+
 
 class AllExercisesScreen extends React.Component {
+ 
+  componentDidMount(){
+    fetch('https://fresh-impala-99.localtunnel.me/exercises')
+    .then(resp => resp.json())
+    .then(exercises => {
+      this.props.fetchExercises(exercises)
+    })
+  
+  }
+  
+  renderExercises() {
+    return this.props.exercises.map(exercise => {
+      return <ExerciseCard key={exercise.id} exercise={exercise} navigation={this.props.navigation}/>
+    })
+  }
+  
 
-  // function to render each exercise card will go here and then function will go in the render, make sure to pass props to exercise card 
+  render() {
+      return (
+      <ScrollView>
+          <View style={styles.cardContainer}>
+            {this.renderExercises()}
+          </View>
+      </ScrollView>
+      )
+  }
 
-    render() {
-        return (
-        <ScrollView>
-            <View style={styles.cardContainer}>
-               <ExerciseCard/>
-               <ExerciseCard/>
-               <ExerciseCard/>
-               <ExerciseCard/>  
-               <ExerciseCard/>
-               <ExerciseCard/>
-               <ExerciseCard/>
-               <ExerciseCard/>
-               <ExerciseCard/>  
-               <ExerciseCard/>
-               <ExerciseCard/>
-               <ExerciseCard/>
-               <ExerciseCard/>
-               <ExerciseCard/>
-
-            </View>
-        </ScrollView>
-        )
-    }
 }
 
-export default AllExercisesScreen
+function mapStateToProps(state) {
+  return {
+    likes: state.user.likes,
+    exercises: state.user.exercises
+  }
+}
+
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     upcount: () => {
+//       dispatch(like())
+//   }
+
+// }
+
+
+
+export default connect(mapStateToProps, {
+  like,
+  fetchExercises
+})(AllExercisesScreen)
+
+
 
 const styles = StyleSheet.create({
   cardContainer: {
