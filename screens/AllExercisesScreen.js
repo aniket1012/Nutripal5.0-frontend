@@ -11,13 +11,10 @@ import { like, fetchExercises } from '../action'
 class AllExercisesScreen extends React.Component {
  
   componentDidMount(){
-    fetch('https://fresh-impala-99.localtunnel.me/exercises')
-    .then(resp => resp.json())
-    .then(exercises => {
-      this.props.fetchExercises(exercises)
-    })
-  
+    this.props.fetchExercises()
   }
+
+
   
   renderExercises() {
     return this.props.exercises.map(exercise => {
@@ -64,7 +61,7 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#37474F',
     flexDirection: 'row',
     width: '100%',

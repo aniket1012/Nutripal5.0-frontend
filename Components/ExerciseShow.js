@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 
 import {connect} from 'react-redux'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -10,24 +10,41 @@ class ExericseCard extends React.Component {
 
 
     render() {
+  
     return (
         <View style={styles.card} >
-            <Text style={styles.title}> EXERCISE NAME DETAIL </Text>
+            {/* <Text style={styles.title}> EXERCISE NAME DETAIL </Text> */}
+            <Text style={styles.title}> {this.props.navigation.getParam('name')} </Text>
             <View style={styles.exerciseImageContainer}>
-              <Image style={styles.exerciseImage} source="https://www.bodybuilding.com/exercises/exerciseImages/sequences/360/Male/m/360_1.jpg" />
-              <Image style={styles.exerciseImage} source="https://www.bodybuilding.com/exercises/exerciseImages/sequences/360/Male/m/360_2.jpg" />
+              <Image style={styles.exerciseImage} source={{uri: this.props.navigation.getParam('img_two')}} />
+              <Image style={styles.exerciseImage} source={{uri: this.props.navigation.getParam('img_one')}} />
             </View>
             <View style={styles.exerciseInfoContainer}>
-              <View style={styles.exerciseInfoLabels}>
-                <Text> LABEL </Text>
+              <View style={styles.exerciseInfoLabel}>
+                {/* <Text> LABEL </Text> */}
+                <Text style={styles.labeltxt}>Main Muscle Targeted: </Text>
+                <Text style={styles.labeltxt}>Equipment: </Text>
+                <Text style={styles.labeltxt}>Category: </Text>
+                <Text style={styles.labeltxt}>Instructions: </Text>
               </View>
               <View style={styles.exerciseInfo}>
-                <Text> INFO</Text>
+                {/* <Text> INFO</Text> */}
+                <Text style={styles.infotxt}> {this.props.navigation.getParam('muscle')} </Text>
+                <Text style={styles.infotxt}> {this.props.navigation.getParam('equipment')} </Text>
+                <Text style={styles.infotxt}> {this.props.navigation.getParam('category')} </Text>
+                <ScrollView style={styles.exerciseInstructions}>
+                   <Text style={styles.infotxt}>{this.props.navigation.getParam('instructions')} </Text>
+                </ScrollView>
               </View>
             </View>
-            <TouchableOpacity style={styles.backBtn} onPress={() => this.props.navigation.navigate('Exercises')}>
-                <Text style={styles.btnTxt}> details {this.props.likes}  </Text>
-            </TouchableOpacity>
+            <View style= {styles.btnContainer}>
+              <TouchableOpacity style={styles.backBtn} onPress={() => this.props.navigation.navigate('Exercises')}>
+                  <Text style={styles.btnTxt}> Add To My Exercises</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.backBtn} onPress={() => this.props.navigation.navigate('Exercises')}>
+                  <Text style={styles.btnTxt}> Back To All Exercises </Text>
+              </TouchableOpacity>
+            </View>
         </View>
         )
     }
@@ -75,21 +92,39 @@ const styles = StyleSheet.create({
      
 
   },
-
+  
   title: {
     fontSize: 30,
-    // textAlign: "center",
+    textAlign: "center",
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
     // padding: 5,
+    
+  },
 
+  labeltxt: {
+    fontSize: 15,
+    // textAlign: "center",
+    color: "#fff",
+    fontWeight: "700",
+    fontFamily: "Avenir-Medium",
+  },
+  
+  infotxt: {
+    fontSize: 12,
+    // textAlign: "center",
+    color: "#fff",
+    fontWeight: "700",
+    fontFamily: "Avenir-Medium",
+    padding: 1.5,
   },
 
 
   exerciseImageContainer: {
-    flexDirection: 'row',
-    marginTop: 50,
+    flexDirection: 'row',  
+    marginTop: 30,
+    
 
   },
 
@@ -111,7 +146,16 @@ const styles = StyleSheet.create({
 
   exerciseInfoContainer: {
     flexDirection: 'row',
+    
+    borderColor: 'black',
+    borderWidth: 5,
+    flex: 1,
+    flexWrap: 'wrap',
+    width: '100%',
+    padding: 5,
+    
   },
+
 
   exerciseInfoLabel: {
     // flexDirection: 'row',
@@ -121,6 +165,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
+    borderColor: 'black',
+    borderWidth: 5,
+    // flex: 1,
 
   },
 
@@ -129,20 +176,49 @@ const styles = StyleSheet.create({
     // marginTop: 50,
     fontSize: 16,
     // textAlign: "center",
+    // width: '50%',
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
+    borderColor: 'black',
+    borderWidth: 5,
+    flex: 1,
+    alignItems: 'flex-start',
+    padding: 2,
+  },
+
+  exerciseInstructions: {
+    borderColor: 'black',
+    borderWidth: 2,
   },
 
 
+  btnContainer: {
+    flexDirection: 'row',
+    marginLeft: 20,
+    
+  },
+
+  // addBtn: {
+  //   backgroundColor: "#263238",
+  //   // alignItems: 'stretch',
+  //   flexDirection: 'column-reverse',
+  //   paddingHorizontal: 10,
+  //   width: "80%",
+  //   marginBottom: 5,
+  //   // flexWrap: 'wrap',
+  //   borderRadius: 100,
+  //   // padding: 1,
+  // },
+
   backBtn: { 
     backgroundColor: "#263238",
-    // alignItems: 'baseline',
+    alignItems: 'center',
     // justifyContent: 'flex-end',
     paddingHorizontal: 10,
-    width: "80%",
+    width: "90%",
     marginBottom: 5,
-  
+    // flexWrap: 'wrap',
     borderRadius: 100,
     // padding: 1,
 
@@ -150,7 +226,7 @@ const styles = StyleSheet.create({
 
   btnTxt: {
     fontSize: 16,
-    // textAlign: "center",
+    textAlign: "center",
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",

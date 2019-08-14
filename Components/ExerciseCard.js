@@ -4,22 +4,25 @@ import { StyleSheet, Text, View, Image,  } from 'react-native';
 import {connect} from 'react-redux'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { like } from '../action'
+import { like, selectExercise } from '../action'
 
 class ExericseCard extends React.Component {
 
+/* I WILL NEED TO CREATE A FUNCTION THAT WILL RENDER THIS EXERCISE CARD ON THE BUILD A WORK OUT SOME */
 
+//ON PRESS AT TOUCHABLE COMPONENT TO FIRE OFF FUNCTION ABOVE
     render() {
       
     return (
+      
         <View style={styles.card} >
             <Text style={styles.title}> {this.props.exercise.name} </Text>
             <Image style={styles.exerciseImage} source={{uri: this.props.exercise.tile}} />
-            {/* <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.like()}>
-                <Text style={styles.btnTxt}> + Add  {this.props.likes}</Text>
-            </TouchableOpacity> */}
-            <TouchableOpacity style={styles.counterBtn} onPress={() => this.props.navigation.navigate('ExerciseShow')}>
-                <Text style={styles.btnTxt}> details {this.props.likes}  </Text>
+            <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.selectExercise(this.props.exercise,this.props.myExercises)}>
+                <Text style={styles.btnTxt}> + Add </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.counterBtn} onPress={() => this.props.navigation.navigate('ExerciseShow', this.props.exercise)}>
+                <Text style={styles.btnTxt}> More Info... </Text>
             </TouchableOpacity>
         </View>
         )
@@ -33,7 +36,8 @@ class ExericseCard extends React.Component {
 function mapStateToProps(state) {
   return {
     likes: state.user.likes,
-    exercises: state.user.exercises
+    exercises: state.user.exercises,
+    myExercises: state.user.myExercises
   }
 }
 
@@ -49,6 +53,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   like,
+  selectExercise
 
 })(ExericseCard)
 
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF6D00',
     // flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     width: '45%',
     // borderColor: 'black',
     // borderWidth: 4,
@@ -92,9 +97,15 @@ const styles = StyleSheet.create({
       // borderColor: 'black',
       borderRadius: 5,
       marginTop: 5,
-      marginBottom: 10,
+      marginBottom: 5,
       // justifyContent: 'center',
-      alignContent: 'center',
+      // alignContent: 'center',
+      // shadowColor: 'black', shadowOffset: {
+      //   width: 0,
+      //   height: 5
+      // },
+      // shadowRadius: 5,
+      // shadowOpacity: 1.0
 
 
   },
@@ -113,7 +124,7 @@ const styles = StyleSheet.create({
   },
 
   btnTxt: {
-    fontSize: 16,
+    fontSize: 9,
     // textAlign: "center",
     color: "#fff",
     fontWeight: "700",
