@@ -16,6 +16,8 @@ import {
 
 import {connect} from 'react-redux'
 
+import { login } from '../action'
+
 
 
 
@@ -27,53 +29,91 @@ const DismissKeyboard = ({children}) => (
 )
 
 class LoginScreen extends React.Component {
+
+  state = {
+    userEmail: "",
+    userPassword: "",
+
+  }
+
+  handleChange(text, field) {
+    if(field === 'email') {
+      this.setState({userEmail: text})
+    } else if(field === 'password')
+    this.setState({userPassword: text})
+  }
+
+  handleSubmit() {
+    userLogin = {
+      email: this.state.userEmail,
+      password: this.state.userPassword
+    }
+    this.props.login(userLogin, this.props.navigation)
+    this.setState({
+      userEmail: "",
+      userPassword: ""
+    })
+  }
+  
+  
     static navigationOptions = {
       title: "Login"
     }
 
 
+
     render() {
-      // console.log(this.props)
+  
+       console.log(this.state.userEmail)
+       console.log(this.state.userPassword)
+
+
         return (
         <DismissKeyboard>
         <KeyboardAvoidingView behavior="padding" style={styles.container}> 
                 <StatusBar barStyle="light-content"/>
                 <View style={styles.logoContainer}>
                     <Image style={styles.logo} source={{uri: 'https://np.technology/img/NP-Small-Square-Trans-White.png'}}/>
-                    <Text style={styles.title}>NutriPal {this.props.likes}</Text> 
+                    <Text style={styles.title}>NutriPal </Text> 
                 </View> 
 
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.input} 
-                    placeholder="UserName or Email" 
+                    value={this.state.userEmail}
+                    placeholder="Email " 
                     placeholderTextColor="rgba(255,255,255,0.7)" 
                     returnKeyType="next"
                     onSubmitEditing={() => this.passwordInput.focus()}
                     keyboardType="email-address"
                     autoCapitalize="none"
                     autoCorrect={false}
+                    onChangeText={(text) => this.handleChange(text, 'email')}
                     />
                     <TextInput style={styles.input} 
-                    placeholder="PassWord" 
+                    value={this.state.userPassword}
+                    placeholder="Password" 
                     secureTextEntry 
                     placeholderTextColor="rgba(255,255,255,0.7)" 
-                    returnKeyType="go" 
+                    returnKeyType="done" 
                     ref={(input) => this.passwordInput = input}
+                    onChangeText={(text) => this.handleChange(text, 'password')}
                     />
                 </View>
 
                 <View style={styles.btnContainer}>
                     <TouchableOpacity 
                     style={styles.userBtn} 
-                    onPress={() => this.props.navigation.navigate('DashBoard')}
+                    // onPress={this.userLogin}
+                    onPress={() => this.handleSubmit()}
+                    // onPress={() => this.props.navigation.navigate('DashBoard')}
                     >
                         <Text style={styles.btnTxt}>Log In</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                     style={styles.userBtn} 
-                    onPress={() => this.props.upcount()}
+                    onPress={() => this.props.navigation.navigate('Welcome')}
                     >
-                        <Text style={styles.btnTxt}>Back to Welcome</Text>
+                        <Text style={styles.btnTxt}>Back </Text>
                     </TouchableOpacity>
                 </View> 
         </KeyboardAvoidingView>
@@ -86,20 +126,23 @@ class LoginScreen extends React.Component {
 //READING FROM DEFAULT STATE 
 function mapStateToProps(state) {
   return {
-    likes: state.user.likes
+    user: state.user.currentUser
+    
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    upcount: () => {
-      dispatch({type:"LIKE"})}
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     upcount: () => {
+//       dispatch({type:"LIKE"})}
+//   }
+// }
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, {
+  login
+})(LoginScreen)
 
 const styles = StyleSheet.create({
   container: {

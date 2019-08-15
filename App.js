@@ -2,7 +2,8 @@ import React from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
-import userReducer from './reducers/userReducer'
+import ExerciseReducer from './reducers/exercsieReducer'
+import UserReducer from './reducers/userReducer'
 
 
 
@@ -29,7 +30,8 @@ import SignUpScreen from './screens/SignUpScreen';
 import HomeScreen from './screens/HomeScreen'  
 
 const rootReducer = combineReducers({
-  user: userReducer
+  exercise: ExerciseReducer,
+  user: UserReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

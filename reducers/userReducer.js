@@ -1,20 +1,14 @@
 const state = {
-    likes: 0,
-    exercises: [],
-    myExercises: [],
+   currentUser: null,
+   
 }
 
 const UserReducer = (prevState = state, action) => {
     switch (action.type) {
-        case "LIKE":
-            return {...prevState, likes: prevState.likes + 1}
+        case "LOGIN": 
+            return {...prevState, currentUser: action.payload}
 
-        case "FETCH_EXERCISES": 
-            return {...prevState, exercises: action.payload}
-
-        case "SELECT_EXERCISE":
-                return {...prevState, myExercises: [...prevState.myExercises, action.payload]}
-
+        
         default:
             return prevState
     }

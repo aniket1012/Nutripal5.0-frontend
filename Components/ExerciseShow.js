@@ -5,9 +5,16 @@ import {connect} from 'react-redux'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 
+import { selectExercise } from '../action'
+
 
 class ExericseCard extends React.Component {
 
+  state = {
+    buildAWorkout: false 
+  }
+
+  
 
     render() {
   
@@ -19,26 +26,51 @@ class ExericseCard extends React.Component {
               <Image style={styles.exerciseImage} source={{uri: this.props.navigation.getParam('img_two')}} />
               <Image style={styles.exerciseImage} source={{uri: this.props.navigation.getParam('img_one')}} />
             </View>
-            <View style={styles.exerciseInfoContainer}>
-              <View style={styles.exerciseInfoLabel}>
+            <ScrollView style={styles.exerciseInfoContainer}>
+                <Text style={styles.labeltxt}>
+                  Main Muscle Targeted :
+                    <Text style={styles.infotext}>
+                      {this.props.navigation.getParam('muscle')} 
+                    </Text>
+                </Text>
+                <Text style={styles.labeltxt}>
+                  Equipment :
+                    <Text style={styles.infotext}>
+                      {this.props.navigation.getParam('equipment')} 
+                    </Text>
+                </Text>
+                <Text style={styles.labeltxt}>
+                 Category :
+                    <Text style={styles.infotext}>
+                      {this.props.navigation.getParam('category')} 
+                    </Text>
+                </Text>
+                <Text style={styles.labeltxt}>
+                  Instructions :
+                    <Text style={styles.infotext}>
+                       {this.props.navigation.getParam('instructions')} 
+                    </Text>
+                </Text>
+                
+              {/* <View style={styles.exerciseInfoLabel}> */}
                 {/* <Text> LABEL </Text> */}
-                <Text style={styles.labeltxt}>Main Muscle Targeted: </Text>
+                {/* <Text style={styles.labeltxt}>Main Muscle Targeted: </Text>
                 <Text style={styles.labeltxt}>Equipment: </Text>
                 <Text style={styles.labeltxt}>Category: </Text>
-                <Text style={styles.labeltxt}>Instructions: </Text>
-              </View>
-              <View style={styles.exerciseInfo}>
+                <Text style={styles.labeltxt}>Instructions: </Text> */}
+              {/* </View> */}
+              {/* <View style={styles.exerciseInfo}> */}
                 {/* <Text> INFO</Text> */}
-                <Text style={styles.infotxt}> {this.props.navigation.getParam('muscle')} </Text>
+                {/* <Text style={styles.infotxt}> {this.props.navigation.getParam('muscle')} </Text>
                 <Text style={styles.infotxt}> {this.props.navigation.getParam('equipment')} </Text>
-                <Text style={styles.infotxt}> {this.props.navigation.getParam('category')} </Text>
-                <ScrollView style={styles.exerciseInstructions}>
+                <Text style={styles.infotxt}> {this.props.navigation.getParam('category')} </Text> */}
+                {/* <ScrollView style={styles.exerciseInstructions}>
                    <Text style={styles.infotxt}>{this.props.navigation.getParam('instructions')} </Text>
-                </ScrollView>
-              </View>
-            </View>
+                </ScrollView> */}
+              {/* </View> */}
+            </ScrollView>
             <View style= {styles.btnContainer}>
-              <TouchableOpacity style={styles.backBtn} onPress={() => this.props.navigation.navigate('Exercises')}>
+              <TouchableOpacity style={styles.backBtn} onPress={() => this.props.selectExercise(this.props.navigation.state.params,this.props.myExercises)}>
                   <Text style={styles.btnTxt}> Add To My Exercises</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.backBtn} onPress={() => this.props.navigation.navigate('Exercises')}>
@@ -55,21 +87,24 @@ class ExericseCard extends React.Component {
 
 
 function mapStateToProps(state) {
+  // debugger
   return {
-    likes: state.user.likes
+    myExercises: state.exercise.myExercises
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    upcount: () => {
-      dispatch({type:"LIKE"})}
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     upcount: () => {
+//       dispatch({type:"LIKE"})}
+//   }
+// }
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExericseCard)
+export default connect(mapStateToProps, {
+  selectExercise
+})(ExericseCard)
 
 const styles = StyleSheet.create({
   card: {
@@ -104,21 +139,35 @@ const styles = StyleSheet.create({
   },
 
   labeltxt: {
-    fontSize: 15,
+    fontSize: 25,
+    borderBottomColor: 'black',
+    borderBottomWidth: 5,
     // textAlign: "center",
-    color: "#fff",
-    fontWeight: "700",
+    alignContent: 'flex-end',
+    color: "black",
+    // fontWeight: "bold",
     fontFamily: "Avenir-Medium",
+    justifyContent: 'flex-end',
   },
   
-  infotxt: {
-    fontSize: 12,
-    // textAlign: "center",
-    color: "#fff",
-    fontWeight: "700",
-    fontFamily: "Avenir-Medium",
-    padding: 1.5,
+  infotext: {
+  fontSize: 16,
+  // textAlign: "right",
+  color: "black",
+  fontWeight: "800",
+  fontFamily: "Avenir-Medium",
+  padding: 2,
+
   },
+
+  // infotxt: {
+  //   fontSize: 12,
+  //   // textAlign: "center",
+  //   color: "#fff",
+  //   // fontWeight: "700",
+  //   fontFamily: "Avenir-Medium",
+  //   padding: 1.5,
+  // },
 
 
   exerciseImageContainer: {
@@ -133,7 +182,7 @@ const styles = StyleSheet.create({
       height: 140,
       //   marginBottom: 10,
       // resizeMode: 'contain',
-      borderWidth: 5,
+      borderWidth: 1,
       borderColor: 'black',
       borderRadius: 5,
       marginTop: 5,
@@ -145,14 +194,15 @@ const styles = StyleSheet.create({
   },
 
   exerciseInfoContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     
-    borderColor: 'black',
-    borderWidth: 5,
+    // borderColor: 'black',
+    borderWidth: 1,
     flex: 1,
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     width: '100%',
     padding: 5,
+    margin: 5,
     
   },
 

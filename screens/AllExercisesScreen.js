@@ -5,7 +5,7 @@ import ExerciseCard from '../Components/ExerciseCard'
 
 import { connect } from 'react-redux'
 
-import { like, fetchExercises } from '../action'
+import { like, fetchExercises, selectExercise } from '../action'
 
 
 class AllExercisesScreen extends React.Component {
@@ -18,7 +18,16 @@ class AllExercisesScreen extends React.Component {
   
   renderExercises() {
     return this.props.exercises.map(exercise => {
-      return <ExerciseCard key={exercise.id} exercise={exercise} navigation={this.props.navigation}/>
+      return (
+      <ExerciseCard key={exercise.id} exercise={exercise} navigation={this.props.navigation}> 
+         <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.selectExercise(exercise,this.props.myExercises)}>
+                <Text style={styles.btnTxt}> + </Text>
+            </TouchableOpacity>
+              <TouchableOpacity style={styles.counterBtn} onPress={() => this.props.navigation.navigate('ExerciseShow', exercise)}>
+                <Text style={styles.btnTxt}>Details</Text>
+            </TouchableOpacity>
+       </ExerciseCard>
+      )
     })
   }
   
@@ -37,8 +46,9 @@ class AllExercisesScreen extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    likes: state.user.likes,
-    exercises: state.user.exercises
+    likes: state.exercise.likes,
+    exercises: state.exercise.exercises,
+    myExercises: state.exercise.myExercises
   }
 }
 
@@ -54,7 +64,8 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   like,
-  fetchExercises
+  fetchExercises,
+  selectExercise
 })(AllExercisesScreen)
 
 
@@ -71,5 +82,33 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
 
+  counterBtn: { 
+    backgroundColor: "#263238",
+    // margin: 5,
+    // textAlign: 'center',
+    // alignItems: 'baseline',
+    // justifyContent: 'fle',
+    // paddingHorizontal: 10,
+    // width: "30%",
+    // marginBottom: 5,
+    borderRadius: 200,
+    padding: 5,
+    borderWidth: 2,
+    borderColor: 'black',
+
+    
+
+  },
+
+  btnTxt: {
+    fontSize: 18,
+    // textAlign: "center",
+    color: "#fff",
+    fontWeight: "700",
+    fontFamily: "Avenir-Medium",
+    padding: 5,
+    // margin: 5,
+    
+  },
   
 });

@@ -16,14 +16,21 @@ class ExericseCard extends React.Component {
     return (
       
         <View style={styles.card} >
+          <View style={styles.titleContainer}>
             <Text style={styles.title}> {this.props.exercise.name} </Text>
+          </View>
+          <View style={styles.imgContainer}>
             <Image style={styles.exerciseImage} source={{uri: this.props.exercise.tile}} />
-            <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.selectExercise(this.props.exercise,this.props.myExercises)}>
-                <Text style={styles.btnTxt}> + Add </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.counterBtn} onPress={() => this.props.navigation.navigate('ExerciseShow', this.props.exercise)}>
-                <Text style={styles.btnTxt}> More Info... </Text>
-            </TouchableOpacity>
+          </View>
+          <View style={styles.btnContainer}>
+            {this.props.children}
+            {/* <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.selectExercise(this.props.exercise,this.props.myExercises)}>
+                <Text style={styles.btnTxt}> + </Text>
+            </TouchableOpacity> */}
+            {/* <TouchableOpacity style={styles.counterBtn} onPress={() => this.props.navigation.navigate('ExerciseShow', this.props.exercise)}>
+                <Text style={styles.btnTxt}>Details</Text>
+            </TouchableOpacity> */}
+          </View>
         </View>
         )
     }
@@ -35,9 +42,9 @@ class ExericseCard extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    likes: state.user.likes,
-    exercises: state.user.exercises,
-    myExercises: state.user.myExercises
+    likes: state.exercise.likes,
+    exercises: state.exercise.exercises,
+    myExercises: state.exercise.myExercises
   }
 }
 
@@ -110,26 +117,56 @@ const styles = StyleSheet.create({
 
   },
 
+  // titleContainer: {
+
+  // },
+
+
+  // imgContainer: {
+
+  // },
+
+
+
+  btnContainer: {
+    flexDirection: "row",
+      justifyContent: "space-evenly",
+      width: "100%",
+      padding: 2,
+    // flexDirection: "row",
+    // alignItems: 'center',
+    // borderWidth: 5,
+    // borderColor: 'black',
+    // width: '100%'
+    
+  },
+
   counterBtn: { 
     backgroundColor: "#263238",
+    // margin: 5,
+    // textAlign: 'center',
     // alignItems: 'baseline',
-    // justifyContent: 'flex-end',
-    paddingHorizontal: 10,
-    width: "80%",
-    marginBottom: 5,
-  
-    borderRadius: 100,
-    // padding: 1,
+    // justifyContent: 'fle',
+    // paddingHorizontal: 10,
+    // width: "30%",
+    // marginBottom: 5,
+    borderRadius: 200,
+    padding: 4,
+    borderWidth: 2,
+    borderColor: 'black',
+
+    
 
   },
 
   btnTxt: {
-    fontSize: 9,
+    fontSize: 18,
     // textAlign: "center",
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
-    // padding: 5,
+    padding: 5,
+    // margin: 5,
     
   },
 });

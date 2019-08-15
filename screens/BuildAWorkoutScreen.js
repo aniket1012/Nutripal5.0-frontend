@@ -5,18 +5,30 @@ import {View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity} from 'r
 import { connect } from 'react-redux'
 import ExerciseCard from '../Components/ExerciseCard';
 
+import { removeExercise } from '../action'
+
 class BuildAWorkoutScreen extends React.Component {
 
     renderMyExercises() {
       return this.props.myExercises.map(exercise => {
-       return <ExerciseCard key={exercise.id} exercise={exercise} navigation={this.props.navigation}/>
+       return (
+        <ExerciseCard key={exercise.id} exercise={exercise} navigation={this.props.navigation}>
+          <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.removeExercise(exercise,this.props.myExercises)}>
+                <Text style={styles.minusBtnTxt}> − </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.counterBtn} onPress={() => this.props.navigation.navigate('ExerciseShow',exercise)}>
+                <Text style={styles.minusBtnTxt}>Details</Text>
+            </TouchableOpacity>
+        </ExerciseCard>
+        )
       })
     }
-
 
   
 
     render() {
+      // console.log(this.props.myExercises)
+      // console.log(this.props.removeExercise)
         return (
         <View>
           <View style={styles.scrollContainer}>
@@ -56,7 +68,7 @@ class BuildAWorkoutScreen extends React.Component {
   
  function mapStateToProps(state) {
    return {
-     myExercises: state.user.myExercises
+     myExercises: state.exercise.myExercises
    }
  }
 
@@ -69,7 +81,9 @@ class BuildAWorkoutScreen extends React.Component {
  // }
       
 
-export default connect(mapStateToProps)(BuildAWorkoutScreen)
+export default connect(mapStateToProps,{
+  removeExercise,
+})(BuildAWorkoutScreen)
 
 
 
@@ -94,16 +108,18 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    backgroundColor: 'orange',
+    backgroundColor: '#37474F',
     padding: 10,
     flexDirection: 'column',
     justifyContent:'flex-end',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     flexWrap: 'wrap',
+    borderTopWidth: 1,
+    borderTopColor: '#263238'
   },
 
   input: {
-    width: "50%",
+    width: "80%",
     // backgroundColor: '#fff',
     padding: 10,
     margin: 5,
@@ -141,6 +157,35 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
+    
+  },
+
+  counterBtn: { 
+    backgroundColor: "#263238",
+    // margin: 5,
+    // textAlign: 'center',
+    // alignItems: 'baseline',
+    // justifyContent: 'fle',
+    // paddingHorizontal: 10,
+    // width: "30%",
+    // marginBottom: 5,
+    borderRadius: 200,
+    padding: 5,
+    borderWidth: 2,
+    borderColor: 'black',
+
+    
+
+  },
+
+  minusBtnTxt: {
+    fontSize: 18,
+    // textAlign: "center",
+    color: "#fff",
+    fontWeight: "700",
+    fontFamily: "Avenir-Medium",
+    padding: 5,
+    // margin: 5,
     
   },
  
