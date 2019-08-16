@@ -63,11 +63,6 @@ class LoginScreen extends React.Component {
 
 
     render() {
-  
-       console.log(this.state.userEmail)
-       console.log(this.state.userPassword)
-
-
         return (
         <DismissKeyboard>
         <KeyboardAvoidingView behavior="padding" style={styles.container}> 
@@ -103,9 +98,7 @@ class LoginScreen extends React.Component {
                 <View style={styles.btnContainer}>
                     <TouchableOpacity 
                     style={styles.userBtn} 
-                    // onPress={this.userLogin}
                     onPress={() => this.handleSubmit()}
-                    // onPress={() => this.props.navigation.navigate('DashBoard')}
                     >
                         <Text style={styles.btnTxt}>Log In</Text>
                     </TouchableOpacity>

@@ -13,6 +13,9 @@ const ExerciseReducer = (prevState = state, action) => {
                 return {...prevState, myExercises: [...prevState.myExercises, action.payload]}
         case "REMOVE_EXERCISE":
                 return {...prevState, myExercises: action.payload }
+        
+        case "EMPTY_MY_EXERCISES":
+            return {...prevState, myExercises: []}
         default:
             return prevState
     }

@@ -7,7 +7,7 @@ function like() {
 
 function fetchExercises() {
     return function(dispatch) {
-        fetch('http://10.9.107.166:3000/exercises')
+        fetch('http://10.9.111.244:3000/exercises')
         .then(resp => resp.json())
         .then(exercises => {
             dispatch({type: "FETCH_EXERCISES", payload: exercises})
@@ -39,7 +39,6 @@ function removeExercise(exercise, myExercises){
        let filterdExercises= myExercises.filter(myE => {
            return myE.id !== exercise.id
         })
-        console.log("Filtered Exercises", filterdExercises)
         dispatch({type: 'REMOVE_EXERCISE', payload: filterdExercises})
     }
 }
@@ -47,7 +46,7 @@ function removeExercise(exercise, myExercises){
 
 function login(userLogin, navigation) {
     return function(dispatch) {
-        return fetch(`http://10.9.107.166:3000/login`, {
+        return fetch(`http://10.9.111.244:3000/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +62,6 @@ function login(userLogin, navigation) {
         if (user.errors) {
             alert(user.errors)
         } else {
-            console.log(user)
             dispatch({
                 type: "LOGIN",
                 payload: user
@@ -74,14 +72,71 @@ function login(userLogin, navigation) {
     
     }
 }
-  
+
+function createWorkout(userWorkout, navigation, myExercises) {
+    console.log("FROM CREATE WORKOUT ACTION")
+    return function(dispatch) {
+        return fetch(`http://10.9.111.244:3000/workouts`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": 'application/json'
+            },
+            body: JSON.stringify({
+                name: userWorkout.name,
+                day: userWorkout.day,
+                user_id: userWorkout.user_id
+            })
+        })
+        .then(resp => resp.json())
+        .then((workout) => {
+            dispatch({type: "NEW_WORKOUT",payload: workout})
+            dispatch({type: "EMPTY_MY_EXERCISES"})
+            navigation.navigate('Home')
+           return myExercises.forEach(myEx => {
+              return  fetch(`http://10.9.111.244:3000/workout_exercises`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        exercise_id: myEx.id,
+                        workout_id: workout.id
+                    })
+                })
+            })
+        })
+    
+            
+    
+    }
+}
+
+function removeWorkout(workout, userWorkouts) {
+    return function(dispatch) {
+         fetch(`http://10.9.111.244:3000/workouts/${workout.id}`, {
+            method: "DELETE"
+        })
+        dispatch({type: 'REMOVE_WORKOUT', payload: workout})
+        
+          
+      
+    }
+}
+
+
+
 
 
 export {
     fetchExercises,
     selectExercise,
     removeExercise,
-    login
+    login,
+    createWorkout,
+    removeWorkout
+    
 }
 
 

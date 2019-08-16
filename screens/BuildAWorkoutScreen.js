@@ -1,36 +1,114 @@
 import React from 'react'
 
-import {View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity} from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+} from 'react-native'
 
 import { connect } from 'react-redux'
 import ExerciseCard from '../Components/ExerciseCard';
 
-import { removeExercise } from '../action'
+import {
+  removeExercise,
+  createWorkout,
+} from '../action'
+
+
+
+const DismissKeyboard = ({children}) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+    </TouchableWithoutFeedback>
+)
 
 class BuildAWorkoutScreen extends React.Component {
 
+
+
+  state = {
+    workoutName: "",
+    workoutDay: "",
+
+  }
+
+  handleChange(text, field) {
+    if(field === 'name') {
+      this.setState({workoutName: text})
+    } else if(field === 'day')
+    this.setState({workoutDay: text})
+  }
+
+  handleSubmit() {
+    userWorkout = {
+      name: this.state.workoutName,
+      day: this.state.workoutDay,
+      user_id: this.props.user.id
+    }
+    this.props.createWorkout(userWorkout, this.props.navigation, this.props.myExercises)
+    this.setState({
+      workoutName: "",
+      workoutDay: ""
+    })
+  }
+
     renderMyExercises() {
+
+
       return this.props.myExercises.map(exercise => {
        return (
         <ExerciseCard key={exercise.id} exercise={exercise} navigation={this.props.navigation}>
           <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.removeExercise(exercise,this.props.myExercises)}>
                 <Text style={styles.minusBtnTxt}> − </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.counterBtn} onPress={() => this.props.navigation.navigate('ExerciseShow',exercise)}>
+            {/* <TouchableOpacity style={styles.counterBtn} onPress={() => this.props.navigation.navigate('ExerciseShow',exercise)}>
                 <Text style={styles.minusBtnTxt}>Details</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </ExerciseCard>
         )
       })
     }
 
+    
+
   
 
     render() {
-      // console.log(this.props.myExercises)
-      // console.log(this.props.removeExercise)
         return (
+        <DismissKeyboard>
         <View>
+          <View style={styles.inputContainer}> 
+            <TextInput 
+                  value={this.state.workoutName}
+                  style={styles.input} 
+                  placeholder="Name Your Workout"
+                  returnKeyType="next"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  placeholderTextColor="rgba(255,255,255,0.7)"
+                  onChangeText={(text) => this.handleChange(text, 'name')}
+            />
+            <TextInput 
+                  value={this.state.workoutDay}
+                  style={styles.input} 
+                  placeholder="Day"
+                  returnKeyType="next"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  placeholderTextColor="rgba(255,255,255,0.7)"
+                  onChangeText = {
+                      (text) => this.handleChange(text, 'day')}
+            />
+            <TouchableOpacity style={styles.sbmtBtn} onPress={() => this.handleSubmit()}>
+                <Text style={styles.btnTxt}>Create Workout</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.scrollContainer}>
             <ScrollView> 
               <View style={styles.cardContainer}>
@@ -38,28 +116,8 @@ class BuildAWorkoutScreen extends React.Component {
               </View>
             </ScrollView>
           </View>
-          <View style={styles.inputContainer}> 
-            <TextInput 
-                  style={styles.input} 
-                  placeholder="Name Your Workout"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  placeholderTextColor="rgba(255,255,255,0.7)"
-            />
-            <TextInput 
-                  style={styles.input} 
-                  placeholder="Day"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  placeholderTextColor="rgba(255,255,255,0.7)"
-            />
-            <TouchableOpacity style={styles.sbmtBtn} onPress={() => alert("Login Works")} onPress={() => this.props.navigation.navigate('DashBoard')}>
-                <Text style={styles.btnTxt}>Create Workout</Text>
-            </TouchableOpacity>
-          </View>
         </View>
+        </DismissKeyboard>
 
         )
     }
@@ -68,7 +126,8 @@ class BuildAWorkoutScreen extends React.Component {
   
  function mapStateToProps(state) {
    return {
-     myExercises: state.exercise.myExercises
+     myExercises: state.exercise.myExercises,
+     user: state.user.currentUser
    }
  }
 
@@ -83,6 +142,7 @@ class BuildAWorkoutScreen extends React.Component {
 
 export default connect(mapStateToProps,{
   removeExercise,
+  createWorkout,
 })(BuildAWorkoutScreen)
 
 
