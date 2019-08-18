@@ -66,7 +66,7 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FF6D00',
+    backgroundColor: '#243B58',
     // flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5,
     marginTop: 15,
+    shadowOffset: {width: 5, height: 3}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.6, 
     
 
    
@@ -141,32 +144,5 @@ const styles = StyleSheet.create({
     
   },
 
-  counterBtn: { 
-    backgroundColor: "#263238",
-    // margin: 5,
-    // textAlign: 'center',
-    // alignItems: 'baseline',
-    // justifyContent: 'fle',
-    // paddingHorizontal: 10,
-    // width: "30%",
-    // marginBottom: 5,
-    borderRadius: 200,
-    padding: 4,
-    borderWidth: 2,
-    borderColor: 'black',
-
-    
-
-  },
-
-  btnTxt: {
-    fontSize: 18,
-    // textAlign: "center",
-    color: "#fff",
-    fontWeight: "700",
-    fontFamily: "Avenir-Medium",
-    padding: 5,
-    // margin: 5,
-    
-  },
+  
 });

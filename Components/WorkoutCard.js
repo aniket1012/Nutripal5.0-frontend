@@ -39,39 +39,46 @@ export default connect(mapStateToProps)(WorkoutCard)
 const styles = StyleSheet.create({
   container: {
     margin: 5,
-    padding: 5,
+    padding: 10,
     flex: 1,
     // height: '25%',
     // backgroundColor: '#fff',
     // flexDirection: 'column',
     width: '15%',
-    borderWidth: 2,
-    borderColor: 'black',
-    // backgroundColor: 'orange',
+    borderWidth: 0.5,
+    // borderColor: 'black',
+    backgroundColor: '#243B58',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
+    shadowOffset: {width: 5, height: 3}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.6, 
+   
     // backgroundColor: 'blue'
   },
 
   workoutTitle: {
-    fontSize: 20,
-    marginTop: 30,
+    fontSize: 16,
+    marginTop: 55,
+    color: 'white',
   },
 
   workoutImage: {
-    width: 90,
+    width: 80,
     height:50,
   },
 
   workoutDay: {
-    fontSize: 14,
-    marginTop: 5,
+    fontSize: 12,
+    color: 'white',
+    // marginBottom: 1,
+    // marginTop: 2,
   },
 
   btnContainer: {
     flexDirection: 'row',
-    padding: 5,
+    // padding: 5,
    
   },
 

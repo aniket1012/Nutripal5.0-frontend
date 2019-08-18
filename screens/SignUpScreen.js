@@ -14,6 +14,12 @@ import {
 
 } from 'react-native'
 
+import {connect} from 'react-redux'
+
+import { createUser } from '../action'
+
+
+
 const DismissKeyboard = ({children}) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         {children}
@@ -21,12 +27,78 @@ const DismissKeyboard = ({children}) => (
 )
 
 class SignUpScreen extends React.Component {
+
+
+    state = {
+      name: "",
+      email: "",
+      password: "",
+      age: "",
+      height: "",
+      weight: "",
+      gender: "",
+      life_style: "",
+    }
+
+
+    handleChange(text, field) {
+      if (field === 'name'){
+        this.setState({ name: text})
+      }
+      else if (field === 'email'){
+        this.setState({ email: text})
+      }
+      else if (field === 'password'){
+        this.setState({ password: text})
+      }
+      else if (field === 'age'){
+        this.setState({ age: text})
+      }
+      else if (field === 'height'){
+        this.setState({ height: text})
+      }
+      else if (field === 'weight'){
+        this.setState({ weight: text})
+      }
+      else if (field === 'gender'){
+        this.setState({ gender: text})
+      }
+      else if (field === 'life_style'){
+        this.setState({ life_style: text})
+      }
+    }
+
+    handleSubmit() {
+      newUser = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+        age: this.state.age,
+        height: this.state.height,
+        weight: this.state.weight,
+        gender: this.state.gender,
+        life_style: this.state.life_style
+      }
+      this.props.createUser(newUser, this.props.navigation)
+      this.setState({
+        name: "",
+        email: "",
+        password: "",
+        age: "",
+        height: "",
+        weight: "",
+        gender: "",
+        life_style: "",
+      })
+    }
+
      static navigationOptions = {
         title: "Sign Up"
     }
 
 
     render() {
+      console.log(this.state)
         return (
     
         <DismissKeyboard>
@@ -44,6 +116,7 @@ class SignUpScreen extends React.Component {
                 autoCapitalize="none"
                 autoCorrect={false}
                 placeholderTextColor="rgba(255,255,255,0.7)"
+                onChangeText={(text) => this.handleChange(text,'name')}
                 />
                 <TextInput 
                 style={styles.input} 
@@ -53,6 +126,7 @@ class SignUpScreen extends React.Component {
                 autoCapitalize="none"
                 autoCorrect={false}
                 placeholderTextColor="rgba(255,255,255,0.7)"
+                onChangeText={(text) => this.handleChange(text,'email')}
                 />
                 <TextInput 
                 style={styles.input} 
@@ -61,11 +135,57 @@ class SignUpScreen extends React.Component {
                 autoCapitalize="none"
                 autoCorrect={false}
                 placeholderTextColor="rgba(255,255,255,0.7)"
+                onChangeText={(text) => this.handleChange(text,'password')}
                 secureTextEntry 
+                />
+                <TextInput 
+                style={styles.input} 
+                placeholder="Age" 
+                returnKeyType="next" 
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                onChangeText={(text) => this.handleChange(text,'age')}
+                />
+                <TextInput 
+                style={styles.input} 
+                placeholder="Height (inches)" 
+                returnKeyType="next" 
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                onChangeText={(text) => this.handleChange(text,'height')}
+                />
+                <TextInput 
+                style={styles.input} 
+                placeholder="Weight (lbs)" 
+                returnKeyType="next" 
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                onChangeText={(text) => this.handleChange(text,'weight')}
+                />
+                <TextInput 
+                style={styles.input} 
+                placeholder="Gender" 
+                returnKeyType="next" 
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                onChangeText={(text) => this.handleChange(text,'gender')} 
+                />
+                <TextInput 
+                style={styles.input} 
+                placeholder="Life Style" 
+                returnKeyType="next" 
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                onChangeText={(text) => this.handleChange(text,'life_style')}
                 />
             </View>
         <View style={styles.btnContainer}>
-            <TouchableOpacity style={styles.userBtn} onPress={() => alert("Login Works")} onPress={() => this.props.navigation.navigate('DashBoard')}>
+            <TouchableOpacity style={styles.userBtn} onPress={() => this.handleSubmit()}>
                 <Text style={styles.btnTxt}>Create Account</Text>
             </TouchableOpacity>
         </View> 
@@ -75,14 +195,26 @@ class SignUpScreen extends React.Component {
         )
     }
 }
+//END OF SIGN UP SCREEN 
 
-export default SignUpScreen
+function mapStateToProps(state) {
+  return {
+    user: state.user.currentUser
+
+  }
+}
+
+
+export default connect(mapStateToProps, {
+createUser
+})(SignUpScreen)
+
 
 
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#37474F",
+    backgroundColor: "#2F5476",
     flex: 1,
     // justifyContent: 'center',
     // alignItems: "center",
@@ -92,6 +224,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexGrow: 1,
     justifyContent: "center",
+    marginTop: 20,
     // textAlign: 'center',
     // margin: 10,
     // color: '#fff',
@@ -150,7 +283,7 @@ const styles = StyleSheet.create({
   },
 
   userBtn: { 
-    backgroundColor: "#263238",
+    backgroundColor: "#213B53",
     paddingVertical: 15,
     width: "45%",
     marginBottom: 25,

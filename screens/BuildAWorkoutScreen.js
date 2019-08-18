@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
+  DatePickerIOS
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -34,7 +35,7 @@ class BuildAWorkoutScreen extends React.Component {
 
   state = {
     workoutName: "",
-    workoutDay: "",
+    workoutDay: new Date(),
 
   }
 
@@ -80,9 +81,10 @@ class BuildAWorkoutScreen extends React.Component {
   
 
     render() {
+      console.log(this.state.workoutDay)
         return (
         <DismissKeyboard>
-        <View>
+        <View style={styles.mainContainer}>
           <View style={styles.inputContainer}> 
             <TextInput 
                   value={this.state.workoutName}
@@ -94,6 +96,22 @@ class BuildAWorkoutScreen extends React.Component {
                   placeholderTextColor="rgba(255,255,255,0.7)"
                   onChangeText={(text) => this.handleChange(text, 'name')}
             />
+            {/* <DatePickerIOS
+            style={styles.datePicker}
+            date={this.state.workoutDay}
+            onDateChange={(text) => this.handleChange(text, 'day')}
+            mode= 'date'
+            placeholder="Select start time"
+            >
+            </DatePickerIOS> */}
+            {/* <DatePickerIOS
+            style={styles.datePicker}
+            date={this.state.workoutDay}
+            onDateChange={(text) => this.handleChange(text, 'day')}
+            mode= 'date'
+            placeholder="Select start time"
+            >
+            </DatePickerIOS> */}
             <TextInput 
                   value={this.state.workoutDay}
                   style={styles.input} 
@@ -108,7 +126,8 @@ class BuildAWorkoutScreen extends React.Component {
             <TouchableOpacity style={styles.sbmtBtn} onPress={() => this.handleSubmit()}>
                 <Text style={styles.btnTxt}>Create Workout</Text>
             </TouchableOpacity>
-          </View>
+            </View>
+          
           <View style={styles.scrollContainer}>
             <ScrollView> 
               <View style={styles.cardContainer}>
@@ -149,40 +168,44 @@ export default connect(mapStateToProps,{
 
 
 const styles = StyleSheet.create({
+
+  mainContainer: {
+    flexDirection: 'column',
+    // margin: 10,
+  },
   
   cardContainer: {
     // flex: 1,
-    backgroundColor: '#37474F',
+    backgroundColor: '#fff',
     flexDirection: 'row',
     width: '100%',
-    // height: '100%',
+    height: '100%',
     flexWrap: 'wrap',
     // padding: 2,
     // alignItems: 'center',
     justifyContent: 'space-evenly',
+    borderWidth: 2,
+    borderColor: 'black',
   },
 
   scrollContainer: {
     backgroundColor: '#37474F',
-    height: '77%'
+    // height: '77%'
   },
 
   inputContainer: {
     backgroundColor: '#37474F',
-    padding: 10,
-    flexDirection: 'column',
-    justifyContent:'flex-end',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    borderTopWidth: 1,
-    borderTopColor: '#263238'
+    height:'50%',
+    borderWidth: 2,
+    borderColor: 'black',
   },
 
   input: {
     width: "80%",
     // backgroundColor: '#fff',
     padding: 10,
-    margin: 5,
+    marginTop: 10,
     // borderColor: "black",
     // marginRight: 1,
     // height: 40,
@@ -196,23 +219,36 @@ const styles = StyleSheet.create({
 
 
   },
+
+  datePicker: {
+    // flex: 2,
+    // borderColor: 'white',
+    // borderWidth: 1,
+    // height: '50%',
+    width: '100%',
+    textDecorationColor: 'white',
+    backgroundColor: '#37474F',
+    
+  },
+
     
 
 
   sbmtBtn: { 
     backgroundColor: "#263238",
     // paddingVertical: 10,
-    width: "50%",
+    width: "30%",
     // marginBottom: 15,
     borderRadius: 30,
     padding: 10,
     margin: 5,
+    alignItems: 'center'
     
 
   },
 
   btnTxt: {
-    fontSize: 16,
+    fontSize: 12,
     textAlign: "center",
     color: "#fff",
     fontWeight: "700",

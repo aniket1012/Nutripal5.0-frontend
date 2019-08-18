@@ -139,7 +139,7 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#37474F",
+    backgroundColor: "#2F5476",
     flex: 1,
     // justifyContent: 'center',
     // alignItems: "center",
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   },
 
   userBtn: { 
-    backgroundColor: "#263238",
+    backgroundColor: "#213B53",
     paddingVertical: 15,
     width: "45%",
     marginBottom: 25,

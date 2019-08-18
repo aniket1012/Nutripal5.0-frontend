@@ -79,7 +79,7 @@ const DashBoardTabNavigator = createMaterialBottomTabNavigator({
   }
   }
 }, {
-  barStyle: { backgroundColor: '#263238' },
+  barStyle: { backgroundColor: '#263238', borderTopWidth: 0, shadowOffset: {width: 5, height: 3}, shadowColor: 'black', shadowOpacity: 0.6 },
   activeTintColor: 'orange',
   navigationOptions: ({navigation}) => {
     const {routeName} = navigation.state.routes[navigation.state.index]
@@ -112,6 +112,9 @@ const HomeStackNavigator = createStackNavigator({
     return {
       headerLeft: (
         <Icon style ={{paddingLeft:10}} name='md-menu' size={30} onPress={() => navigation.openDrawer()} />
+      ),
+      headerRight: (
+        <Icon style ={{paddingRight:10}} name='md-exit' size={30} onPress={() => navigation.navigate('Welcome')} />
       ),
       headerTitle: "Home"
     }

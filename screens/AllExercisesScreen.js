@@ -73,7 +73,7 @@ export default connect(mapStateToProps, {
 const styles = StyleSheet.create({
   cardContainer: {
     // flex: 1,
-    backgroundColor: '#37474F',
+    backgroundColor: '#fff',
     flexDirection: 'row',
     width: '100%',
     flexWrap: 'wrap',
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
 
   counterBtn: { 
-    backgroundColor: "#263238",
+    backgroundColor: "#fff",
     // margin: 5,
     // textAlign: 'center',
     // alignItems: 'baseline',
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
     padding: 5,
+    color: 'black',
     // margin: 5,
     
   },

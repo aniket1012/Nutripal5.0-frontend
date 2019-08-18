@@ -10,6 +10,12 @@ import {
 } from 'react-native'
 import WorkoutCard from '../Components/WorkoutCard'
 
+import {
+    Calendar,
+    CalendarList,
+    Agenda
+} from 'react-native-calendars'
+
 
 import {connect} from 'react-redux'
 
@@ -57,7 +63,7 @@ class HomeScreen extends React.Component {
     
 
     render() {
-        console.log(this.state.workoutDetails)
+        
 
         return (
             <View style={styles.container}>
@@ -90,12 +96,63 @@ class HomeScreen extends React.Component {
                             return <Text key={workoutEx.id} style={styles.workoutValueTxt}> {workoutEx.name} </Text>
                         })}
                     </Text> 
-                </View> : null
+                </View> 
+                :
+                <CalendarList 
+                style = {
+                    {
+                        borderWidth: 1,
+                        borderColor: 'gray',
+                        height: 500,
+                        
+                    }
+                }
+                theme = {
+                    {
+                        backgroundColor: '#ffffff',
+                        calendarBackground: '#ffffff',
+                        textSectionTitleColor: '#b6c1cd',
+                        selectedDayBackgroundColor: '#00adf5',
+                        selectedDayTextColor: '#ffffff',
+                        todayTextColor: '#00adf5',
+                        dayTextColor: '#2d4150',
+                        textDisabledColor: '#d9e1e8',
+                        dotColor: '#00adf5',
+                        selectedDotColor: '#ffffff',
+                        arrowColor: 'orange',
+                        monthTextColor: 'black',
+                        // indicatorColor: 'blue',
+                        textDayFontFamily: 'Avenir-Medium',
+                        textMonthFontFamily: 'Avenir-Medium',
+                        textDayHeaderFontFamily: 'Avenir-Medium',
+                        textDayFontWeight: '300',
+                        textMonthFontWeight: 'bold',
+                        textDayHeaderFontWeight: '300',
+                        textDayFontSize: 16,
+                        textMonthFontSize: 16,
+                        textDayHeaderFontSize: 16
+                    }
+                }
+                onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
+                // Enable horizontal scrolling, default = false
+                pastScrollRange={10}
+                futureScrollRange={10}
+                scrollEnabled={true}
+                showScrollIndicator={true}
+
+                horizontal={true}
+                 // Enable paging on horizontal, default = false
+                pagingEnabled={true}
+                showScrollIndicator= {true}
+                
+
+                /> 
+                // <Agenda/>
                 }
             </View>
         )
     }
-    workoutValuelTxt
+    
 }
 // END OF HOME SCREEN 
 
@@ -116,7 +173,7 @@ export default connect(mapStateToProps, {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: 'orange',
+    // backgroundColor: '#D5E9FF',
     // width: '100%',
     // alignItems: 'center',
     // justifyContent: 'center',
@@ -125,30 +182,51 @@ const styles = StyleSheet.create({
 
   titleContainer: {
     height: '10%',
-    backgroundColor: 'green',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: 'black',
+    // borderWidth: 1,
+    // borderColor: 'black',
     
   },
 
   title: {
-    fontSize: 38,
+    fontSize: 28,
+    fontFamily: 'Avenir-Medium',
+    color: 'black',
+    fontWeight: "700",
+    
   },
 
   scrollContainer: {
     // width: "100%",
     // flex: 1,
-    backgroundColor: '#455A64',
+    backgroundColor: '#fff',
     height: '20%',
     padding: 5,
+    // borderBottomColor: '#758599',
+    // borderBottomWidth: 0.3,
+    // marginBottom: 50,
+    // borderTopColor: '#758599',
+    // borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'grey',
+   
   },
 
   workoutlabel: {
-      fontSize: 28,
-      padding: 5,
-      textAlign: 'center',
+      fontSize: 16,
+      padding: 10,
+        // justifyContent: 'flex-end',
+      textAlign: 'left',
+    //   alignContent: 'center',
+      backgroundColor: '#fff',
+      fontFamily: 'Avenir-Medium',
+      color: 'black',
+      margin: 5,
+      fontWeight: "700",
+      textDecorationLine: 'underline',
+    //   height: '8%',
   },
 
   workoutTilesContainer: {
@@ -168,7 +246,7 @@ const styles = StyleSheet.create({
 
   counterBtn: { 
     backgroundColor: "#263238",
-    marginBottom: 30,
+    marginBottom: 58,
     // textAlign: 'center',
     // alignItems: 'baseline',
     // justifyContent: 'fle',
@@ -179,7 +257,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderWidth: 2,
     borderColor: 'black',
-    margin: 5,
+    margin: 3,
 
     
 
@@ -191,7 +269,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
-    padding: 2,
+    padding: 1,
     // margin: 5,
 
    
@@ -200,10 +278,12 @@ const styles = StyleSheet.create({
 
     workoutDetail: {
         borderColor: 'black',
-        borderWidth: 2,
+        borderWidth: 0.5,
         padding: 15,
-        margin: 15,
+        // margin: 15,
         flexDirection: 'column',
+        height: '100%',
+        backgroundColor: '#fff',
     },
     
     workoutDetailTxt: {
