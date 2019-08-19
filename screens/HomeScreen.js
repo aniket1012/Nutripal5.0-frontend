@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 import {
     View,
@@ -16,6 +17,8 @@ import {
     Agenda
 } from 'react-native-calendars'
 
+import Icon from '@expo/vector-icons/Ionicons'
+
 
 import {connect} from 'react-redux'
 
@@ -26,7 +29,7 @@ import { removeWorkout } from '../action'
 
 
 class HomeScreen extends React.Component {
-
+    
 
     state = {
         details: false,
@@ -63,7 +66,7 @@ class HomeScreen extends React.Component {
     
 
     render() {
-        
+        console.log(this.state.workoutDetails)
 
         return (
             <View style={styles.container}>
@@ -88,12 +91,12 @@ class HomeScreen extends React.Component {
                     </Text>
                     <Text style={styles.workoutDetailTxt}>Day :
                         <Text style={styles.workoutValueTxt}>
-                            {this.state.workoutDetails.day}
+                            {moment(this.state.workoutDetails.day).format('MMM Do Y')}
                         </Text>
                     </Text>
                     <Text style={styles.workoutDetailTxt}>Exercises :
                         {this.state.workoutDetails.exercises.map(workoutEx => {
-                            return <Text key={workoutEx.id} style={styles.workoutValueTxt}> {workoutEx.name} </Text>
+                            return <Text key={workoutEx.id} style={styles.workoutValueTxt}> {workoutEx.name}, </Text>
                         })}
                     </Text> 
                 </View> 
@@ -101,9 +104,11 @@ class HomeScreen extends React.Component {
                 <CalendarList 
                 style = {
                     {
-                        borderWidth: 1,
+                        borderWidth: 0.2,
                         borderColor: 'gray',
-                        height: 500,
+                        height: 360,
+                        // margin: 5,
+                        marginTop: 20,
                         
                     }
                 }
@@ -112,7 +117,7 @@ class HomeScreen extends React.Component {
                         backgroundColor: '#ffffff',
                         calendarBackground: '#ffffff',
                         textSectionTitleColor: '#b6c1cd',
-                        selectedDayBackgroundColor: '#00adf5',
+                        selectedDayBackgroundColor:'#01579B', 
                         selectedDayTextColor: '#ffffff',
                         todayTextColor: '#00adf5',
                         dayTextColor: '#2d4150',
@@ -120,7 +125,7 @@ class HomeScreen extends React.Component {
                         dotColor: '#00adf5',
                         selectedDotColor: '#ffffff',
                         arrowColor: 'orange',
-                        monthTextColor: 'black',
+                        monthTextColor: '#01579B',
                         // indicatorColor: 'blue',
                         textDayFontFamily: 'Avenir-Medium',
                         textMonthFontFamily: 'Avenir-Medium',
@@ -144,9 +149,8 @@ class HomeScreen extends React.Component {
                  // Enable paging on horizontal, default = false
                 pagingEnabled={true}
                 showScrollIndicator= {true}
-                
 
-                /> 
+                />
                 // <Agenda/>
                 }
             </View>
@@ -193,8 +197,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontFamily: 'Avenir-Medium',
-    color: 'black',
-    fontWeight: "700",
+    color: '#01579B',
+    fontWeight: "bold",
+    shadowOffset:{width: 10, height: 5},
+    shadowColor: 'black',
+    shadowOpacity: 0.2
+    // textDecorationLine: 'underline',
     
   },
 
@@ -209,8 +217,10 @@ const styles = StyleSheet.create({
     // marginBottom: 50,
     // borderTopColor: '#758599',
     // borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'grey',
+    // borderBottomWidth: 0.5,
+    // borderBottomColor: 'grey',
+    // marginBottom: 5,
+    
    
   },
 
@@ -220,12 +230,16 @@ const styles = StyleSheet.create({
         // justifyContent: 'flex-end',
       textAlign: 'left',
     //   alignContent: 'center',
-      backgroundColor: '#fff',
+    //   backgroundColor: '#fff',
       fontFamily: 'Avenir-Medium',
-      color: 'black',
+      color: '#01579B',
       margin: 5,
-      fontWeight: "700",
+    //   fontWeight: "700",
       textDecorationLine: 'underline',
+      shadowOffset:{width: 10, height: 5},
+        shadowColor: 'black',
+        shadowOpacity: 0.4
+      
     //   height: '8%',
   },
 
@@ -245,7 +259,7 @@ const styles = StyleSheet.create({
   },
 
   counterBtn: { 
-    backgroundColor: "#263238",
+    backgroundColor: "#fff",
     marginBottom: 58,
     // textAlign: 'center',
     // alignItems: 'baseline',
@@ -255,7 +269,7 @@ const styles = StyleSheet.create({
     // marginBottom: 5,
     borderRadius: 200,
     padding: 5,
-    borderWidth: 2,
+    borderWidth: 0.5,
     borderColor: 'black',
     margin: 3,
 
@@ -266,7 +280,7 @@ const styles = StyleSheet.create({
   minusBtnTxt: {
     fontSize: 10,
     // textAlign: "center",
-    color: "#fff",
+    color: "black",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
     padding: 1,
@@ -278,25 +292,41 @@ const styles = StyleSheet.create({
 
     workoutDetail: {
         borderColor: 'black',
-        borderWidth: 0.5,
+        borderWidth: .3,
         padding: 15,
+        margin: 15,
         // margin: 15,
         flexDirection: 'column',
-        height: '100%',
-        backgroundColor: '#fff',
+        height: '60%',
+        backgroundColor: '#01579B',
+        borderRadius: 30,
+        shadowOffset: {
+                width: 5,
+                height: 3
+            },
+        shadowColor: 'black',
+        shadowOpacity: 0.6,
     },
     
     workoutDetailTxt: {
         padding: 5,
         fontSize: 22,
+        color: '#fff',
+        fontWeight: "700",
+        
     },
 
     workoutValueTxt: {
         fontSize: 16,
         padding: 10,
-    }
+        color: '#fff',
+        fontWeight: "200",
+    },
         
 
+    totalworkouts: {
+
+    }
     
   
 

@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
-  KeyboardAvoidingView,
-  DatePickerIOS
+  DatePickerIOS,
+  Picker
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -19,6 +19,7 @@ import ExerciseCard from '../Components/ExerciseCard';
 import {
   removeExercise,
   createWorkout,
+  emptyExercises,
 } from '../action'
 
 
@@ -55,8 +56,9 @@ class BuildAWorkoutScreen extends React.Component {
     this.props.createWorkout(userWorkout, this.props.navigation, this.props.myExercises)
     this.setState({
       workoutName: "",
-      workoutDay: ""
+      workoutDay: new Date()
     })
+  
   }
 
     renderMyExercises() {
@@ -81,7 +83,7 @@ class BuildAWorkoutScreen extends React.Component {
   
 
     render() {
-      console.log(this.state.workoutDay)
+      // console.log(this.props.myExercises)
         return (
         <DismissKeyboard>
         <View style={styles.mainContainer}>
@@ -96,23 +98,18 @@ class BuildAWorkoutScreen extends React.Component {
                   placeholderTextColor="rgba(255,255,255,0.7)"
                   onChangeText={(text) => this.handleChange(text, 'name')}
             />
-            {/* <DatePickerIOS
-            style={styles.datePicker}
+            <DatePickerIOS
+            initialDate={this.state.workoutDay}
+            style={styles.picker}
             date={this.state.workoutDay}
             onDateChange={(text) => this.handleChange(text, 'day')}
             mode= 'date'
             placeholder="Select start time"
+            
             >
-            </DatePickerIOS> */}
-            {/* <DatePickerIOS
-            style={styles.datePicker}
-            date={this.state.workoutDay}
-            onDateChange={(text) => this.handleChange(text, 'day')}
-            mode= 'date'
-            placeholder="Select start time"
-            >
-            </DatePickerIOS> */}
-            <TextInput 
+            </DatePickerIOS>
+          
+            {/* <TextInput 
                   value={this.state.workoutDay}
                   style={styles.input} 
                   placeholder="Day"
@@ -122,19 +119,16 @@ class BuildAWorkoutScreen extends React.Component {
                   placeholderTextColor="rgba(255,255,255,0.7)"
                   onChangeText = {
                       (text) => this.handleChange(text, 'day')}
-            />
+            /> */}
             <TouchableOpacity style={styles.sbmtBtn} onPress={() => this.handleSubmit()}>
                 <Text style={styles.btnTxt}>Create Workout</Text>
             </TouchableOpacity>
             </View>
-          
-          <View style={styles.scrollContainer}>
             <ScrollView> 
               <View style={styles.cardContainer}>
                 {this.renderMyExercises()}
               </View>
             </ScrollView>
-          </View>
         </View>
         </DismissKeyboard>
 
@@ -162,6 +156,7 @@ class BuildAWorkoutScreen extends React.Component {
 export default connect(mapStateToProps,{
   removeExercise,
   createWorkout,
+  emptyExercises,
 })(BuildAWorkoutScreen)
 
 
@@ -170,35 +165,48 @@ export default connect(mapStateToProps,{
 const styles = StyleSheet.create({
 
   mainContainer: {
-    flexDirection: 'column',
+    // flexDirection: 'column',
+    // backgroundColor: 'blue',
     // margin: 10,
+    flex: 3,
   },
   
   cardContainer: {
     // flex: 1,
+    // backgroundColor: '#fff',
+    // flexDirection: 'row',
+    // width: '100%',
+    // height: '100%',
+    // flexWrap: 'wrap',
+    // padding: 2,
+    // alignItems: 'center',
+    // justifyContent: 'space-evenly',
+    // borderWidth: 2,
+    // borderColor: 'black',
     backgroundColor: '#fff',
     flexDirection: 'row',
     width: '100%',
-    height: '100%',
     flexWrap: 'wrap',
-    // padding: 2,
-    // alignItems: 'center',
     justifyContent: 'space-evenly',
-    borderWidth: 2,
-    borderColor: 'black',
   },
 
-  scrollContainer: {
-    backgroundColor: '#37474F',
-    // height: '77%'
-  },
+  
 
   inputContainer: {
-    backgroundColor: '#37474F',
+    // flex: 1,
+    // margin: 1,
+    backgroundColor: '#01579B',
     alignItems: 'center',
-    height:'50%',
-    borderWidth: 2,
-    borderColor: 'black',
+    width: '100%',
+    // borderWidth: 2,
+    // borderColor: 'black',
+    shadowOffset: {
+        width: 5,
+        height: 3
+      },
+      shadowColor: 'black',
+      shadowOpacity: 0.6,
+      
   },
 
   input: {
@@ -220,28 +228,28 @@ const styles = StyleSheet.create({
 
   },
 
-  datePicker: {
-    // flex: 2,
-    // borderColor: 'white',
-    // borderWidth: 1,
-    // height: '50%',
-    width: '100%',
-    textDecorationColor: 'white',
-    backgroundColor: '#37474F',
+  // datePicker: {
+  //   // flex: 2,
+  //   // borderColor: 'white',
+  //   // borderWidth: 1,
+  //   // height: '50%',
+  //   width: '100%',
+  //   textDecorationColor: 'white',
+  //   backgroundColor: '#37474F',
     
-  },
+  // },
 
     
 
 
   sbmtBtn: { 
-    backgroundColor: "#263238",
+    backgroundColor: "#fff",
     // paddingVertical: 10,
     width: "30%",
     // marginBottom: 15,
     borderRadius: 30,
     padding: 10,
-    margin: 5,
+    margin: 10,
     alignItems: 'center'
     
 
@@ -250,14 +258,14 @@ const styles = StyleSheet.create({
   btnTxt: {
     fontSize: 12,
     textAlign: "center",
-    color: "#fff",
+    color: "#243B58",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
     
   },
 
   counterBtn: { 
-    backgroundColor: "#263238",
+    backgroundColor: "#fff",
     // margin: 5,
     // textAlign: 'center',
     // alignItems: 'baseline',
@@ -267,7 +275,7 @@ const styles = StyleSheet.create({
     // marginBottom: 5,
     borderRadius: 200,
     padding: 5,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: 'black',
 
     
@@ -275,15 +283,23 @@ const styles = StyleSheet.create({
   },
 
   minusBtnTxt: {
-    fontSize: 18,
+    fontSize: 16,
     // textAlign: "center",
-    color: "#fff",
+    color: "black",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
     padding: 5,
     // margin: 5,
     
   },
+  
+  picker: {
+    // borderWidth: 1,
+    padding: 2,
+    // borderColor: 'red',
+    width: '80%',
+    color: 'white'
+  }
  
 
 });

@@ -8,8 +8,8 @@ import UserReducer from './reducers/userReducer'
 
 
 
-import { StyleSheet, Text, View, } from 'react-native';
-import { createSwitchNavigator, createAppContainer, createDrawerNavigator, createBottomTabNavigator, createStackNavigator, } from 'react-navigation'
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, Dimensions, Image, } from 'react-native';
+import { createSwitchNavigator, createAppContainer, createDrawerNavigator, createBottomTabNavigator, createStackNavigator, DrawerItems } from 'react-navigation'
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs"
 
 import WelcomeScreen from './screens/WelcomeScreen'
@@ -79,8 +79,17 @@ const DashBoardTabNavigator = createMaterialBottomTabNavigator({
   }
   }
 }, {
-  barStyle: { backgroundColor: '#263238', borderTopWidth: 0, shadowOffset: {width: 5, height: 3}, shadowColor: 'black', shadowOpacity: 0.6 },
-  activeTintColor: 'orange',
+  barStyle: {
+    backgroundColor: '#243B58',
+    borderTopWidth: 0,
+    shadowOffset: {
+      width: 5,
+      height: 3
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.6
+  },
+  activeTintColor: '#40C4FF',
   navigationOptions: ({navigation}) => {
     const {routeName} = navigation.state.routes[navigation.state.index]
     return {
@@ -134,11 +143,29 @@ const ProfleStackNavigator = createStackNavigator({
   }
 })
 
+
+const customDrawerComponent = (props) => (
+  <SafeAreaView style={{flex:1}}>
+    <View style={{height: 250, backgroundColor: '#01579B', alignItems:'center', justifyContent: 'center', flex:1}}>
+      <Image style={styles.logo} source={{uri: 'https://np.technology/img/NP-Small-Square-Trans-White.png'}}/>
+    </View>
+    <ScrollView style={{backgroundColor: '#01579B', color: '#fff'}}>
+      <DrawerItems {...props} />
+    </ScrollView>
+  </SafeAreaView>
+
+)
+
 //DASHBOARD DRAWER NAVIGATION 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {screen: HomeStackNavigator},
   Exercises: {screen: DashBoardStackNavigator},
   Profile: {screen: ProfleStackNavigator},
+},{
+  contentComponent: customDrawerComponent,
+  contentOptions: {
+    activeTintColor: '#fff'
+  }
 })
 
 //WELCOME SCREEN APP SWITCH NAVIGATOR TO LOGIN AND SIGN UP
@@ -161,5 +188,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  logo: {
+    width: 100,
+    height: 100,
+
   },
 });

@@ -66,7 +66,7 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#243B58',
+    backgroundColor: '#01579B',
     // flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly',

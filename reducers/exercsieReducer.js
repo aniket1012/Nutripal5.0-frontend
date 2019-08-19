@@ -15,6 +15,7 @@ const ExerciseReducer = (prevState = state, action) => {
                 return {...prevState, myExercises: action.payload }
         
         case "EMPTY_MY_EXERCISES":
+            // debugger
             return {...prevState, myExercises: []}
         default:
             return prevState

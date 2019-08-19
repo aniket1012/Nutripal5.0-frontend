@@ -1,4 +1,6 @@
 import React from 'react'
+import moment from 'moment'
+
 
 import {View, Text, StyleSheet, Button, TouchableOpacity, Image } from 'react-native'
 
@@ -13,9 +15,9 @@ class WorkoutCard extends React.Component {
             <View style={styles.container}>
                 <Text style={styles.workoutTitle}> {this.props.workout.name}</Text>
                 < Image style = {styles.workoutImage}
-                source = {{uri: 'https://cdn4.iconfinder.com/data/icons/sports-recreation/128/dumbbell-ol-3-512.png'}}
+                source = {{uri: 'https://d1nhio0ox7pgb.cloudfront.net/_img/m_collection_png/512x512/plain/dumbbell.png'}}
                 />
-                <Text style={styles.workoutDay}> {this.props.workout.day}</Text>
+                <Text style={styles.workoutDay}> {moment(this.props.workout.day).format('MMM Do Y')}</Text>
                 <View style={styles.btnContainer}>
                     {this.props.children}    
                 </View>                   
@@ -41,21 +43,16 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 10,
     flex: 1,
-    // height: '25%',
-    // backgroundColor: '#fff',
-    // flexDirection: 'column',
     width: '15%',
-    borderWidth: 0.5,
+    // borderWidth: 0.5,
     // borderColor: 'black',
-    backgroundColor: '#243B58',
+    backgroundColor: '#01579B',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-    shadowOffset: {width: 5, height: 3}, 
+    shadowOffset: {width: 5, height: 5}, 
     shadowColor: 'black', 
     shadowOpacity: 0.6, 
-   
-    // backgroundColor: 'blue'
   },
 
   workoutTitle: {
@@ -65,8 +62,8 @@ const styles = StyleSheet.create({
   },
 
   workoutImage: {
-    width: 80,
-    height:50,
+    width: 55,
+    height:45,
   },
 
   workoutDay: {
@@ -83,7 +80,7 @@ const styles = StyleSheet.create({
   },
 
   counterBtn: { 
-    backgroundColor: "#263238",
+    backgroundColor: "#fff",
     // margin: 2,
     // textAlign: 'center',
     // alignItems: 'baseline',
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
   minusBtnTxt: {
     fontSize: 10,
     // textAlign: "center",
-    color: "#fff",
+    color: "grey",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
     padding: 5,

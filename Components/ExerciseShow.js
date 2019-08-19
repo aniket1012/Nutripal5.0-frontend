@@ -108,24 +108,17 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FF6D00',
-    // flexDirection: 'column',
+    backgroundColor: '#01579B',
     alignItems: 'center',
-    // justifyContent: 'space-between',
-    // width: '45%',
-    height: '100%',
+    height: '97%',
     borderColor: 'black',
-    borderWidth: 4,
+    // borderWidth: 0.5,
     borderRadius: 20,
     padding: 5,
-    // marginTop: 15,
-    
-
-   
-
-    // height: '30%'
-     
-
+    margin: 10,
+    shadowOffset: {width: 5, height: 3}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.6, 
   },
   
   title: {
@@ -134,7 +127,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
-    // padding: 5,
+
     
   },
 
@@ -144,17 +137,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
     // textAlign: "center",
     alignContent: 'flex-end',
-    color: "black",
+    color: "white",
     // fontWeight: "bold",
     fontFamily: "Avenir-Medium",
     justifyContent: 'flex-end',
+    fontWeight: "bold",
   },
   
   infotext: {
   fontSize: 16,
   // textAlign: "right",
-  color: "black",
-  fontWeight: "800",
+  color: "white",
+  fontWeight: "400",
   fontFamily: "Avenir-Medium",
   padding: 2,
 
@@ -182,7 +176,7 @@ const styles = StyleSheet.create({
       height: 140,
       //   marginBottom: 10,
       // resizeMode: 'contain',
-      borderWidth: 1,
+      // borderWidth: 0.4,
       borderColor: 'black',
       borderRadius: 5,
       marginTop: 5,
@@ -190,19 +184,25 @@ const styles = StyleSheet.create({
       // justifyContent: 'center',
       alignContent: 'center',
       margin: 20,
+      shadowOffset: {width: 5, height: 3}, 
+      shadowColor: 'white', 
+      shadowOpacity: 0.6,
   
   },
 
   exerciseInfoContainer: {
     flexDirection: 'column',
     
-    // borderColor: 'black',
-    borderWidth: 1,
+    borderColor: 'black',
+    borderWidth: 0.5,
     flex: 1,
+    borderRadius: 20,
     // flexWrap: 'wrap',
     width: '100%',
     padding: 5,
     margin: 5,
+    
+   
     
   },
 
@@ -231,10 +231,11 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
     borderColor: 'black',
-    borderWidth: 5,
+    // borderWidth: 5,
     flex: 1,
     alignItems: 'flex-start',
-    padding: 2,
+    padding: 20,
+    // marginBottom: 15,
   },
 
   exerciseInstructions: {
@@ -246,6 +247,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: 'row',
     marginLeft: 20,
+    marginBottom: 0,
     
   },
 
@@ -262,7 +264,7 @@ const styles = StyleSheet.create({
   // },
 
   backBtn: { 
-    backgroundColor: "#263238",
+    backgroundColor: "#fff",
     alignItems: 'center',
     // justifyContent: 'flex-end',
     paddingHorizontal: 10,
@@ -270,6 +272,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     // flexWrap: 'wrap',
     borderRadius: 100,
+    borderWidth: 0.2,
     // padding: 1,
 
   },
@@ -277,7 +280,7 @@ const styles = StyleSheet.create({
   btnTxt: {
     fontSize: 16,
     textAlign: "center",
-    color: "#fff",
+    color: "#01579B",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
     // padding: 5,

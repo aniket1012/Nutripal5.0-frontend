@@ -11,6 +11,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     StatusBar,
+    Picker,
 
 } from 'react-native'
 
@@ -28,7 +29,7 @@ const DismissKeyboard = ({children}) => (
 
 class SignUpScreen extends React.Component {
 
-
+ 
     state = {
       name: "",
       email: "",
@@ -111,7 +112,7 @@ class SignUpScreen extends React.Component {
             <View style={styles.inputContainer}> 
                 <TextInput 
                 style={styles.input} 
-                placeholder="UserName"
+                placeholder="Name"
                 returnKeyType="next"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -138,7 +139,7 @@ class SignUpScreen extends React.Component {
                 onChangeText={(text) => this.handleChange(text,'password')}
                 secureTextEntry 
                 />
-                <TextInput 
+                {/* <TextInput 
                 style={styles.input} 
                 placeholder="Age" 
                 returnKeyType="next" 
@@ -164,8 +165,26 @@ class SignUpScreen extends React.Component {
                 autoCorrect={false}
                 placeholderTextColor="rgba(255,255,255,0.7)"
                 onChangeText={(text) => this.handleChange(text,'weight')}
-                />
-                <TextInput 
+                /> */}
+                {/* <Picker
+                selectedValue={this.state.gender}
+                style={styles.pickerGender}
+                onValueChange={(text) => this.handleChange(text, 'gender')}>
+                  <Picker.Item label= 'Select Gender -' value=''/>
+                  <Picker.Item label= 'Male' value='male'/>
+                  <Picker.Item label= 'Female' value='female'/>
+                </Picker> */}
+                {/* <Picker
+                selectedValue={this.state.gender}
+                style={styles.pickerGender}
+                onValueChange={(text) => this.handleChange(text, 'gender')}>
+                  <Picker.Item label= 'Life Style -' value=''/>
+                  <Picker.Item label= 'Sedentary' value='sedentary'/>
+                  <Picker.Item label= 'Lightly Active' value='light'/>
+                  <Picker.Item label= 'Active' value='active'/>
+                  <Picker.Item label= 'Very Active' value='highly'/>
+                </Picker> */}
+                {/* <TextInput 
                 style={styles.input} 
                 placeholder="Gender" 
                 returnKeyType="next" 
@@ -182,13 +201,13 @@ class SignUpScreen extends React.Component {
                 autoCorrect={false}
                 placeholderTextColor="rgba(255,255,255,0.7)"
                 onChangeText={(text) => this.handleChange(text,'life_style')}
-                />
+                /> */}
+              <View style={styles.btnContainer}>
+                  <TouchableOpacity style={styles.userBtn} onPress={() => this.handleSubmit()}>
+                      <Text style={styles.btnTxt}>Create Account</Text>
+                  </TouchableOpacity>
+              </View> 
             </View>
-        <View style={styles.btnContainer}>
-            <TouchableOpacity style={styles.userBtn} onPress={() => this.handleSubmit()}>
-                <Text style={styles.btnTxt}>Create Account</Text>
-            </TouchableOpacity>
-        </View> 
       </KeyboardAvoidingView>
       </DismissKeyboard>
       
@@ -216,15 +235,16 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#2F5476",
     flex: 1,
-    // justifyContent: 'center',
+    // padding: 50,
+    justifyContent: 'space-between',
     // alignItems: "center",
   },
 
   logoContainer: {
     alignItems: "center",
-    flexGrow: 1,
+    // flex: 1,
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 120,
     // textAlign: 'center',
     // margin: 10,
     // color: '#fff',
@@ -243,7 +263,7 @@ const styles = StyleSheet.create({
   title: {
     color: "#fff",
     marginTop: 10,
-    width: 190,
+    // width: 190,
     textAlign: "center",
     opacity: 0.9,
     fontSize: 50,
@@ -253,8 +273,10 @@ const styles = StyleSheet.create({
   },
 
    inputContainer: {
-       padding: 15,
+       padding: 10,
        marginBottom: 10,
+       marginTop: 50,
+       
    },
 
 
@@ -300,6 +322,19 @@ const styles = StyleSheet.create({
     
   },
 
+  pickerGender: {
+    // position: 'relative',
+    // bottom: 0,
+    // right: 0,
+    // left: 0,
+
+    // height: 150,
+    // width: 350,
+    borderWidth: 2,
+    // flex:1,
+    backgroundColor: '#fff',
+    padding: 0,
+  }
   
 
 
