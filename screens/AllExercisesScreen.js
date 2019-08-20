@@ -29,6 +29,8 @@ class AllExercisesScreen extends React.Component {
     absFilter: false,
     backFilter: false,
     legsFilter: false,
+
+    exercises: [],
   }
  
 
@@ -76,50 +78,65 @@ class AllExercisesScreen extends React.Component {
     }
   }
 
+  resetFilter() {
+    this.setState({
+      chestFilter: false,
+      shouldersFilter: false,
+      bicepsFilter: false,
+      tricepsFilter: false,
+      absFilter: false,
+      backFilter: false,
+      legsFilter: false,
+    })
+  }
+
   applyFilter() {
     if( this.state.chestFilter) {
-      return this.searchExercises().filter(exercise => {
+      return this.props.exercises.filter(exercise => {
       return  exercise.muscle === 'Chest'
       })
     } else if (this.state.shouldersFilter) {
-      return this.searchExercises().filter(exercise => {
+      return this.props.exercises.filter(exercise => {
         return exercise.muscle === 'Shoulders'
       })
     }
      else if (this.state.bicepsFilter) {
-      return this.searchExercises().filter(exercise => {
-        return exercise.muscle === 'Biceps'
+      return this.props.exercises.filter(exercise => {
+        return exercise.muscle === 'Bicep'
       })
     }
      else if (this.state.tricepsFilter) {
-      return this.searchExercises().filter(exercise => {
+      return this.props.exercises.filter(exercise => {
         return exercise.muscle === 'Triceps'
       })
     }
      else if (this.state.absFilter) {
-      return this.searchExercises().filter(exercise => {
+      return this.props.exercises.filter(exercise => {
         return exercise.muscle === 'Abdominals'
       })
     }
      else if (this.state.backFilter) {
-      return this.searchExercises().filter(exercise => {
+      return this.props.exercises.filter(exercise => {
         return exercise.muscle === 'Back'
       })
     }
      else if (this.state.legsFilter) {
-      return this.searchExercises().filter(exercise => {
+      return this.props.exercises.filter(exercise => {
         return exercise.muscle === 'Legs'
       })
-    } else 
-    return this.props.myExercises
+    } else {
+      return this.props.exercises.filter(exercise => {
+        return exercise.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+      })
+    }
   }
 
 
-  searchExercises() {
-    return this.props.exercises.filter(exercise => {
-      return exercise.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
-    })
-  }
+  // searchExercises() {
+  //   return this.props.exercises.filter(exercise => {
+  //     return exercise.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+  //   })
+  // }
 
   componentDidMount(){
     this.props.fetchExercises()
@@ -128,7 +145,7 @@ class AllExercisesScreen extends React.Component {
 
   
   renderExercises() {
-    return this.searchExercises().map(exercise => {
+    return this.applyFilter().map(exercise => {
       return (
       <ExerciseCard key={exercise.id} exercise={exercise} navigation={this.props.navigation}> 
          <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.selectExercise(exercise,this.props.myExercises)}>
@@ -144,7 +161,7 @@ class AllExercisesScreen extends React.Component {
   
 
   render() {
-    console.log(this.state)
+    console.log(this.applyFilter())
       return (
         <DismissKeyboard>
         <View style={styles.mainContainer}>
@@ -203,6 +220,12 @@ class AllExercisesScreen extends React.Component {
                     <Text style ={styles.bodyText}>Legs</Text>
                   </TouchableOpacity>
               </View>
+              <View>
+                <Button
+                title="Reset Filter"
+                onPress={() => this.resetFilter()}/>
+              </View>
+
           
         <ScrollView>
             <View style={styles.cardContainer}>

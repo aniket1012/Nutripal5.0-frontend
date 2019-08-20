@@ -7,7 +7,7 @@ function like() {
 
 function fetchExercises() {
     return function(dispatch) {
-        fetch('http://10.9.109.240:3000/exercises')
+        fetch('http://10.9.109.89:3000/exercises')
         .then(resp => resp.json())
         .then(exercises => {
             dispatch({type: "FETCH_EXERCISES", payload: exercises})
@@ -46,7 +46,7 @@ function removeExercise(exercise, myExercises){
 
 function login(userLogin, navigation) {
     return function(dispatch) {
-        return fetch(`http://10.9.109.240:3000/login`, {
+        return fetch(`http://10.9.109.89:3000/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function login(userLogin, navigation) {
 function createWorkout(userWorkout, navigation, myExercises) {
     // console.log("FROM CREATE WORKOUT ACTION")
     return function(dispatch) {
-        return fetch(`http://10.9.109.240:3000/workouts`, {
+        return fetch(`http://10.9.109.89:3000/workouts`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ function createWorkout(userWorkout, navigation, myExercises) {
 
 function removeWorkout(workout, userWorkouts) {
     return function(dispatch) {
-         fetch(`http://10.9.109.240:3000/workouts/${workout.id}`, {
+         fetch(`http://10.9.109.89:3000/workouts/${workout.id}`, {
             method: "DELETE"
         })
         dispatch({type: 'REMOVE_WORKOUT', payload: workout})
@@ -121,7 +121,7 @@ function removeWorkout(workout, userWorkouts) {
 
 function createUser(newUser, navigation) {
     return function (dispatch) {
-        fetch(`http://10.9.109.240:3000/users`, {
+        fetch(`http://10.9.109.89:3000/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -131,17 +131,34 @@ function createUser(newUser, navigation) {
                 name: newUser.name,
                 email: newUser.email,
                 password: newUser.password,
-                age: newUser.age,
-                height: newUser.height,
-                weight: newUser.weight,
-                gender: newUser.gender,
-                life_style: newUser.life_style
             })
         })
         .then(resp => resp.json())
         .then(newUser => {
             dispatch({type:"NEW_USER", payload: newUser})
             navigation.navigate('Home')
+        })
+    }
+}
+
+function updateUser(user, navigation, currentUser ) {
+    return function(dispatch) {
+        fetch(`http://10.9.109.89:3000/users/${currentUser.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: user.name,
+                email: user.email,
+                password: user.password
+            })
+        })
+        .then(resp => resp.json())
+        .then(user => {
+            dispatch({type: "LOGIN", payload: user})
+            navigation.navigate('Profile')
         })
     }
 }
@@ -157,6 +174,7 @@ export {
     createWorkout,
     removeWorkout,
     createUser,
+    updateUser,
     
     
 }

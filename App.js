@@ -138,6 +138,9 @@ const ProfleStackNavigator = createStackNavigator({
       headerLeft: (
         <Icon style ={{paddingLeft:10}} name='md-menu' size={30} onPress={() => navigation.openDrawer()} />
       ),
+      headerRight: (
+        <Icon style ={{paddingRight:10}} name='md-exit' size={30} onPress={() => navigation.navigate('Welcome')} />
+      ),
       headerTitle: "Profile"
     }
   }
@@ -145,14 +148,14 @@ const ProfleStackNavigator = createStackNavigator({
 
 
 const customDrawerComponent = (props) => (
-  <SafeAreaView style={{flex:1}}>
+  <View style={{flex:1}}>
     <View style={{height: 250, backgroundColor: '#01579B', alignItems:'center', justifyContent: 'center', flex:1}}>
       <Image style={styles.logo} source={{uri: 'https://np.technology/img/NP-Small-Square-Trans-White.png'}}/>
     </View>
     <ScrollView style={{backgroundColor: '#01579B', color: '#fff'}}>
       <DrawerItems {...props} />
     </ScrollView>
-  </SafeAreaView>
+  </View>
 
 )
 

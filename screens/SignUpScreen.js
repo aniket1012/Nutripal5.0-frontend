@@ -34,11 +34,6 @@ class SignUpScreen extends React.Component {
       name: "",
       email: "",
       password: "",
-      age: "",
-      height: "",
-      weight: "",
-      gender: "",
-      life_style: "",
     }
 
 
@@ -52,21 +47,7 @@ class SignUpScreen extends React.Component {
       else if (field === 'password'){
         this.setState({ password: text})
       }
-      else if (field === 'age'){
-        this.setState({ age: text})
-      }
-      else if (field === 'height'){
-        this.setState({ height: text})
-      }
-      else if (field === 'weight'){
-        this.setState({ weight: text})
-      }
-      else if (field === 'gender'){
-        this.setState({ gender: text})
-      }
-      else if (field === 'life_style'){
-        this.setState({ life_style: text})
-      }
+
     }
 
     handleSubmit() {
@@ -74,22 +55,12 @@ class SignUpScreen extends React.Component {
         name: this.state.name,
         email: this.state.email,
         password: this.state.password,
-        age: this.state.age,
-        height: this.state.height,
-        weight: this.state.weight,
-        gender: this.state.gender,
-        life_style: this.state.life_style
       }
       this.props.createUser(newUser, this.props.navigation)
       this.setState({
         name: "",
         email: "",
         password: "",
-        age: "",
-        height: "",
-        weight: "",
-        gender: "",
-        life_style: "",
       })
     }
 
