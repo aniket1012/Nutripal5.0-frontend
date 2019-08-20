@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5,
     marginTop: 15,
-    shadowOffset: {width: 5, height: 3}, 
+    shadowOffset: {width: 6, height: 5}, 
     shadowColor: 'black', 
     shadowOpacity: 0.6, 
     
@@ -94,6 +94,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
     fontFamily: "Avenir-Medium",
+    shadowOffset: {width: 6, height: 5}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.6, 
     // padding: 5,
     
   },
@@ -108,14 +111,9 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       marginTop: 5,
       marginBottom: 5,
-      // justifyContent: 'center',
-      // alignContent: 'center',
-      // shadowColor: 'black', shadowOffset: {
-      //   width: 0,
-      //   height: 5
-      // },
-      // shadowRadius: 5,
-      // shadowOpacity: 1.0
+    //  shadowOffset: {width: 10, height: 5}, 
+      // shadowColor: 'black', 
+      // shadowOpacity: 0.4
 
 
   },

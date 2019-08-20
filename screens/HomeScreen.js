@@ -33,7 +33,8 @@ class HomeScreen extends React.Component {
 
     state = {
         details: false,
-        workoutDetails: null
+        workoutDetails: null,
+        selectedDate: null,
     }
 
     toggleDetails(workout) {
@@ -46,10 +47,26 @@ class HomeScreen extends React.Component {
         })
 
     }
+
+    selectDate(day) {
+        this.setState({
+            selectedDate: day.dateString
+        })
+    }
     
 
+    filterWorkouts() {
+        if (this.state.selectedDate ) {
+            return this.props.userWorkouts.filter(workout => {
+                return  moment(workout.day).format('YYYY-MM-DD') === this.state.selectedDate
+            })
+
+        } else 
+        return this.props.userWorkouts
+    }
+
     renderWorkouts() {
-      return  this.props.userWorkouts.map(workout => {
+      return  this.filterWorkouts().map(workout => {
         return (
             <WorkoutCard key={workout.id} workout={workout} navigation={this.props.navigation}>
                 <TouchableOpacity style={styles.counterBtn}  onPress={() => this.props.removeWorkout(workout,this.props.userWorkouts)}>
@@ -63,13 +80,23 @@ class HomeScreen extends React.Component {
         })
     }
 
+    workoutDates() {
+
+        let workoutDates = {}
+         this.props.userWorkouts.forEach(wrk => {
+            workoutDates[moment(wrk.day).format('YYYY-MM-DD')] = {selected: true}
+        })
+        return workoutDates
+
+    }
+
+
     
 
     render() {
-        console.log(this.state.workoutDetails)
 
         return (
-            <View style={styles.container}>
+            <View              tyle={styles.container}>
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}> Welcome {this.props.user.name} </Text>
                 </View>
@@ -149,10 +176,24 @@ class HomeScreen extends React.Component {
                  // Enable paging on horizontal, default = false
                 pagingEnabled={true}
                 showScrollIndicator= {true}
+                markedDates= {this.workoutDates()}
+                onDayPress={(day) => this.selectDate(day) }
 
                 />
                 // <Agenda/>
                 }
+                {this.state.selectedDate ? 
+                <View style= {styles.btnContainer}>
+                    <TouchableOpacity
+                    onPress={() => this.setState({selectedDate: null})}
+                    style={styles.allWorkoutButton}
+                    >
+                        <Text style ={styles.bodyText}>Show all </Text>
+                    </TouchableOpacity>
+                </View>
+                    :
+                    null
+                    }
             </View>
         )
     }
@@ -324,10 +365,38 @@ const styles = StyleSheet.create({
     },
         
 
-    totalworkouts: {
-
-    }
     
-  
+    // allWorkoutButton: {
+    //     borderWidth: 2,
+    //     borderColor: 'black'
+    // },
+
+
+    btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    padding: 10,
+    backgroundColor: '#fff'
+    
+  },
+
+  allWorkoutButton: {
+    // borderWidth: 0.5,
+    // borderColor: 'black',
+    padding: 5,
+    margin: 10,
+    borderRadius: 15,
+    backgroundColor: '#01579B',
+    shadowOffset: {width: 5, height: 3}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.3
+  },
+
+  bodyText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 14,
+
+  },
 
 });

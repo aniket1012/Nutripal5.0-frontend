@@ -2,6 +2,9 @@ import React from 'react'
 
 import {View, Text, StyleSheet, Image, ScrollView, Dimensions, Button, TouchableOpacity, TextInput, TouchableWithoutFeedback,
     Keyboard } from 'react-native'
+
+import * as Animatable from 'react-native-animatable'
+
 import ExerciseCard from '../Components/ExerciseCard'
 
 import { connect } from 'react-redux'
@@ -21,6 +24,7 @@ class AllExercisesScreen extends React.Component {
 
   state = {
     searchTerm: '',
+    searchBarFocused: true,
     
     chestFilter: false,
     shouldersFilter: false,
@@ -161,22 +165,22 @@ class AllExercisesScreen extends React.Component {
   
 
   render() {
-    console.log(this.applyFilter())
+   
       return (
         <DismissKeyboard>
         <View style={styles.mainContainer}>
-          <View style={styles.inputContainer}>
+          <Animatable.View animation= 'slideInRight' duration={500} style={styles.inputContainer}>
             <TextInput 
                 style={styles.input} 
-                placeholder = "🔍 Search"
+                placeholder = "🔍 Search..."
                 autoCapitalize="none"
                 autoCorrect={false}
-                placeholderTextColor="black"
+                placeholderTextColor = "grey"
                 onChangeText={(text) => this.handleChange(text,'search')}
                 />
-            </View>
+            </Animatable.View>
             <View style={styles.btnContainer}>
-              <Text style={{color: '#fff', fontSize: 14, fontWeight:'600' }}>Filters:</Text>
+              <Text style={{color: '#fff', fontSize: 10, fontWeight:'800', padding: 5, }}>Filters</Text>
                   <TouchableOpacity 
                   style ={styles.bodyFilter}
                   onPress={() => this.toggleFilter('chest')}
@@ -220,14 +224,18 @@ class AllExercisesScreen extends React.Component {
                     <Text style ={styles.bodyText}>Legs</Text>
                   </TouchableOpacity>
               </View>
-              <View>
-                <Button
+              <View style={{alignItems: 'flex-end', marginRight: 10,}}>
+                <TouchableOpacity
+                style ={styles.resetFilterBtn}
                 title="Reset Filter"
-                onPress={() => this.resetFilter()}/>
+                onPress={() => this.resetFilter()}>
+                  <Text style={styles.filterTxt}> Reset Filter</Text>
+                </TouchableOpacity>
+               
               </View>
 
           
-        <ScrollView>
+        < ScrollView>
             <View style={styles.cardContainer}>
               {this.renderExercises()}
             </View>
@@ -273,24 +281,51 @@ const styles = StyleSheet.create({
 
   },
 
-  inputContainer: {
+  resetFilterBtn: {
+    // borderColor: 'black', 
+    // borderWidth: 1,
     alignItems: 'center',
-    padding: 10
+    width: 100,
+    margin: 7,
+    padding: 5,
+    borderRadius: 25,
+    backgroundColor: '#213B53',
+    shadowOffset: {width: 5, height: 3}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.3
+  },
+
+  filterTxt: {
+    color: "#fff",
+    fontWeight: "500",
+    fontFamily: "Avenir-Medium",
+  },
+
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    // backgroundColor: 'rgba(255,255,255,0.2)'
+    backgroundColor: '#01579B',
     // flexDirection: 'row',
     // justifyContent: 'space-evenly'
     
   },
 
   input: {
-    borderRadius: 15,
+    // borderRadius: 15,
+    textAlign: 'center',
+    flex: 1,
     borderWidth: 1,
     borderColor: '#01579B',
-    width: 180,
-    height: 40,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    // marginBottom: 15,
+    // width: 180,
+    // height: 40,
+    backgroundColor: '#fff',
+    // backgroundColor: 'rgba(255,255,255,0.2)',
+    // marginLeft: 15,
     color: "black",
-    padding: 10,
+    // padding: 10,
+    fontSize: 22,
   },
 
   btnContainer: {
@@ -302,11 +337,19 @@ const styles = StyleSheet.create({
   },
 
   bodyFilter: {
-
+    // borderWidth: 0.5,
+    // borderColor: 'black',
+    padding: 2,
+    margin: 4,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    shadowOffset: {width: 5, height: 3}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.3
   },
 
   bodyText: {
-    color: '#fff',
+    color: '#01579B',
     fontWeight: '500',
     fontSize: 14,
 
@@ -317,7 +360,8 @@ const styles = StyleSheet.create({
 
   cardContainer: {
     // flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: this.state.searchBarFocused ? 'rgba(0,0,0,0.3' : '#fff',
+    // backgroundColor: '#fff',
     flexDirection: 'row',
     width: '100%',
     flexWrap: 'wrap',
@@ -328,17 +372,13 @@ const styles = StyleSheet.create({
 
   counterBtn: { 
     backgroundColor: "#fff",
-    // margin: 5,
-    // textAlign: 'center',
-    // alignItems: 'baseline',
-    // justifyContent: 'fle',
-    // paddingHorizontal: 10,
-    // width: "30%",
-    // marginBottom: 5,
     borderRadius: 200,
     padding: 5,
-    borderWidth: 2,
-    borderColor: 'black',
+    shadowOffset: {width: 10, height: 5}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.4
+    // borderWidth: 2,
+    // borderColor: 'black',
 
     
 

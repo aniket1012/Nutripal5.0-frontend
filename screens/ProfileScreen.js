@@ -71,7 +71,6 @@ class Profile extends React.Component {
   
 
     render() {
-      console.log(this.state)
         return (
             <View style={styles.mainContainer}>
               <View style={styles.imgContainer}>
@@ -84,7 +83,7 @@ class Profile extends React.Component {
                   <TextInput 
                   // value={this.props.user.name}
                   style={styles.input} 
-                  placeholder={this.props.user.name}
+                  placeholder='Edit Name'
                   // returnKeyType="next"
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -94,7 +93,7 @@ class Profile extends React.Component {
                   <TextInput 
                   // value={this.props.user.email}
                   style={styles.input} 
-                  placeholder={this.props.user.email}
+                  placeholder='New Email Address'
                   // returnKeyType="next"
                   keyboardType="email-address"
                   autoCapitalize="none"
@@ -120,12 +119,15 @@ class Profile extends React.Component {
                         Email: {this.props.user.email}
                     </Text>
                     <Text style={styles.infoText}>
-                        Total Number of Workouts: {this.props.user.workouts.length}
+                        Total Number of Workouts: {this.props.userWorkouts.length}
                     </Text>
                 </View>}
               
                 {this.state.form ? 
                 <View style={styles.btnContainer}>
+                  <TouchableOpacity style={styles.userBtn} onPress={() =>  this.toggleForm()}>
+                      <Text style={styles.btnTxt}> X </Text>
+                  </TouchableOpacity>
                   <TouchableOpacity style={styles.userBtn} onPress={() => {this.handleSubmit(); this.toggleForm()}}>
                       <Text style={styles.btnTxt}>Done</Text>
                   </TouchableOpacity>
@@ -147,6 +149,7 @@ class Profile extends React.Component {
 function mapStateToProps(state) {
     return {
         user: state.user.currentUser,
+        userWorkouts: state.user.userWorkouts
         
 
     }

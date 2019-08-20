@@ -13,6 +13,8 @@ import {
   Picker
 } from 'react-native'
 
+import DateTimePicker from "react-native-modal-datetime-picker"
+
 import { connect } from 'react-redux'
 import ExerciseCard from '../Components/ExerciseCard';
 
@@ -105,21 +107,8 @@ class BuildAWorkoutScreen extends React.Component {
             onDateChange={(text) => this.handleChange(text, 'day')}
             mode= 'date'
             placeholder="Select start time"
-            
             >
             </DatePickerIOS>
-          
-            {/* <TextInput 
-                  value={this.state.workoutDay}
-                  style={styles.input} 
-                  placeholder="Day"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  placeholderTextColor="rgba(255,255,255,0.7)"
-                  onChangeText = {
-                      (text) => this.handleChange(text, 'day')}
-            /> */}
             <TouchableOpacity style={styles.sbmtBtn} onPress={() => this.handleSubmit()}>
                 <Text style={styles.btnTxt}>Create Workout</Text>
             </TouchableOpacity>
@@ -275,8 +264,11 @@ const styles = StyleSheet.create({
     // marginBottom: 5,
     borderRadius: 200,
     padding: 5,
-    borderWidth: 1,
-    borderColor: 'black',
+    shadowOffset: {width: 10, height: 5}, 
+    shadowColor: 'black', 
+    shadowOpacity: 0.4
+    // borderWidth: 1,
+    // borderColor: 'black',
 
     
 
@@ -295,10 +287,10 @@ const styles = StyleSheet.create({
   
   picker: {
     // borderWidth: 1,
-    padding: 2,
+    // padding: 2,
     // borderColor: 'red',
     width: '80%',
-    color: 'white'
+    // color: 'white'
   }
  
 
