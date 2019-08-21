@@ -11,13 +11,14 @@ class WorkoutCard extends React.Component {
     
 
     render() {
+      
         return (
             <View style={styles.container}>
                 <Text style={styles.workoutTitle}> {this.props.workout.name}</Text>
                 < Image style = {styles.workoutImage}
                 source = {{uri: 'https://d1nhio0ox7pgb.cloudfront.net/_img/m_collection_png/512x512/plain/dumbbell.png'}}
                 />
-                <Text style={styles.workoutDay}> {moment(this.props.workout.day).format('MMM Do Y')}</Text>
+                {/* <Text style={styles.workoutDay}> {moment(this.props.workout.day).format('MMM Do Y')}</Text> */}
                 <View style={styles.btnContainer}>
                     {this.props.children}    
                 </View>                   
