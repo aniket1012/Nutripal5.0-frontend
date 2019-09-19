@@ -7,7 +7,7 @@ function like() {
 
 function fetchExercises() {
     return function(dispatch) {
-        fetch('http://10.9.106.116:3000/exercises')
+        fetch('http://192.168.1.18:3000/exercises')
         .then(resp => resp.json())
         .then(exercises => {
             dispatch({type: "FETCH_EXERCISES", payload: exercises})
@@ -46,7 +46,7 @@ function removeExercise(exercise, myExercises){
 
 function login(userLogin, navigation) {
     return function(dispatch) {
-        return fetch(`http://10.9.106.116:3000/login`, {
+        return fetch(`http://192.168.1.18:3000/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -75,9 +75,10 @@ function login(userLogin, navigation) {
 }
 
 function createWorkout(userWorkout, navigation, myExercises) {
-    // console.log("FROM CREATE WORKOUT ACTION")
+   
     return function(dispatch) {
-        return fetch(`http://10.9.106.116:3000/workouts`, {
+        console.log("FROM END OF CREATE WORKOUT ACTION", userWorkout)
+        return fetch(`http://192.168.1.18:3000/workouts`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -92,6 +93,7 @@ function createWorkout(userWorkout, navigation, myExercises) {
         })
         .then(resp => resp.json())
         .then((workout) => {
+             console.log("FROM END OF CREATE WORKOUT ACTION", workout)
             dispatch({type: 'NEW_WORKOUT', payload: workout})
             // debugger
             dispatch({type: "EMPTY_MY_EXERCISES"})
@@ -109,7 +111,7 @@ function createWorkout(userWorkout, navigation, myExercises) {
 
 function removeWorkout(workout, userWorkouts) {
     return function(dispatch) {
-         fetch(`http://10.9.106.116:3000/workouts/${workout.id}`, {
+         fetch(`http://192.168.1.18:3000/workouts/${workout.id}`, {
             method: "DELETE"
         })
         dispatch({type: 'REMOVE_WORKOUT', payload: workout})
@@ -121,7 +123,7 @@ function removeWorkout(workout, userWorkouts) {
 
 function createUser(newUser, navigation) {
     return function (dispatch) {
-        fetch(`http://10.9.106.116:3000/users`, {
+        fetch(`http://192.168.1.18:3000/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -135,15 +137,19 @@ function createUser(newUser, navigation) {
         })
         .then(resp => resp.json())
         .then(newUser => {
+            if (newUser.errors) {
+                alert(newUser.errors)
+            } else {
             dispatch({type:"NEW_USER", payload: newUser})
             navigation.navigate('Home')
+            }
         })
     }
 }
 
 function updateUser(user, navigation, currentUser ) {
     return function(dispatch) {
-        fetch(`http://10.9.106.116:3000/users/${currentUser.id}`, {
+        fetch(`http://192.168.1.18:3000/users/${currentUser.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -157,8 +163,12 @@ function updateUser(user, navigation, currentUser ) {
         })
         .then(resp => resp.json())
         .then(user => {
+            if (user.errors) {
+                alert(user.errors)
+            } else {
             dispatch({type: "LOGIN", payload: user})
             navigation.navigate('Profile')
+            }
         })
     }
 }

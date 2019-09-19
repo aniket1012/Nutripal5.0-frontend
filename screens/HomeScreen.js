@@ -62,7 +62,7 @@ class HomeScreen extends React.Component {
             })
 
         } else 
-        return this.props.userWorkouts
+        return this.props.userWorkouts.reverse()
     }
 
     renderWorkouts() {
@@ -94,9 +94,9 @@ class HomeScreen extends React.Component {
     
 
     render() {
-
+       
         return (
-            <View              tyle={styles.container}>
+            <View style={styles.container}>
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}> Welcome {this.props.user.name} </Text>
                 </View>
@@ -165,7 +165,7 @@ class HomeScreen extends React.Component {
                         textDayHeaderFontSize: 16
                     }
                 }
-                onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
+                // onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
                 // Enable horizontal scrolling, default = false
                 pastScrollRange={10}
                 futureScrollRange={10}
