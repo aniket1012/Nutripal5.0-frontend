@@ -7,7 +7,7 @@ function like() {
 
 function fetchExercises() {
     return function(dispatch) {
-        fetch('http://192.168.1.18:3000/exercises')
+        fetch('http://10.51.107.240:3000/exercises')
         .then(resp => resp.json())
         .then(exercises => {
             dispatch({type: "FETCH_EXERCISES", payload: exercises})
@@ -46,7 +46,7 @@ function removeExercise(exercise, myExercises){
 
 function login(userLogin, navigation) {
     return function(dispatch) {
-        return fetch(`http://192.168.1.18:3000/login`, {
+        return fetch(`http://10.51.107.240:3000/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ function createWorkout(userWorkout, navigation, myExercises) {
    
     return function(dispatch) {
         console.log("FROM END OF CREATE WORKOUT ACTION", userWorkout)
-        return fetch(`http://192.168.1.18:3000/workouts`, {
+        return fetch(`http://10.51.107.240:3000/workouts`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ function createWorkout(userWorkout, navigation, myExercises) {
 
 function removeWorkout(workout, userWorkouts) {
     return function(dispatch) {
-         fetch(`http://192.168.1.18:3000/workouts/${workout.id}`, {
+         fetch(`http://10.51.107.240:3000/workouts/${workout.id}`, {
             method: "DELETE"
         })
         dispatch({type: 'REMOVE_WORKOUT', payload: workout})
@@ -123,7 +123,7 @@ function removeWorkout(workout, userWorkouts) {
 
 function createUser(newUser, navigation) {
     return function (dispatch) {
-        fetch(`http://192.168.1.18:3000/users`, {
+        fetch(`http://10.51.107.240:3000/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -149,7 +149,7 @@ function createUser(newUser, navigation) {
 
 function updateUser(user, navigation, currentUser ) {
     return function(dispatch) {
-        fetch(`http://192.168.1.18:3000/users/${currentUser.id}`, {
+        fetch(`http://10.51.107.240:3000/users/${currentUser.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
